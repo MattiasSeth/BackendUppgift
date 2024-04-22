@@ -1,8 +1,6 @@
 package com.example.backenduppgift.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -12,5 +10,7 @@ public class Room {
     @Id
     @GeneratedValue
     private long id;
-    //
+    @Enumerated(EnumType.STRING) // tydligare att spara string värdet av enum, istället för int-ordningen.
+    private RoomType roomType;
+    private int bedQuantity;
 }
