@@ -3,16 +3,21 @@ package com.example.backenduppgift.Entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
+    private String name;
 
-
+    public Customer (String name){
+        this.name = name;
+    }
 }

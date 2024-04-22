@@ -3,13 +3,36 @@ package com.example.backenduppgift.Entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Data
+import java.awt.print.Book;
+import java.time.LocalDate;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
-
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
+    @ManyToOne
+    private Customer customer;
+
+    @ManyToOne
+    private Room room;
+
+    private int extraBeds;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    public Booking(Customer customer, Room room, int extraBeds, LocalDate startDate, LocalDate endDate) {
+        this.customer = customer;
+        this.room = room;
+        this.extraBeds = extraBeds;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
