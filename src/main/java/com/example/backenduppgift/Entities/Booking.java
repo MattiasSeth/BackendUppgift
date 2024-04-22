@@ -11,7 +11,7 @@ public class Booking {
 
     @Id
     @GeneratedValue
-    private long bookingId;
+    private long id;
     private Date startDate;
     private Date endDate;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})

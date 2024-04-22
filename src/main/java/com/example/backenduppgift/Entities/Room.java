@@ -9,7 +9,7 @@ public class Room {
 
     @Id
     @GeneratedValue
-    private long roomId;
+    private long id;
     @Enumerated(EnumType.STRING) // tydligare att spara string värdet av enum, istället för int-ordningen.
     private RoomType roomType;
     private int bedQuantity;
