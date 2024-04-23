@@ -5,12 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.awt.print.Book;
 import java.time.LocalDate;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
