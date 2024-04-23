@@ -1,20 +1,26 @@
 package com.example.backenduppgift.Entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Data
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
-    private long personnummer;
+    @GeneratedValue
+    private Long id;
 
     private String name;
-    private String email;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+
+    public Customer (String name){
+        this.name = name;
+    }
 
 }
