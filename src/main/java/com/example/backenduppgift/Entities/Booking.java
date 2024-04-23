@@ -1,19 +1,40 @@
 package com.example.backenduppgift.Entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.awt.print.Book;
+import java.time.LocalDate;
 
-@Data
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
-
     @Id
     @GeneratedValue
-    private long id;
-    private Date startDate;
-    private Date endDate;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Long id;
+    //
+    @ManyToOne
+    private Customer customer;
+
+    @ManyToOne
     private Room room;
+
+    private int extraBeds;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    public Booking(Customer customer, Room room, int extraBeds, LocalDate startDate, LocalDate endDate) {
+        this.customer = customer;
+        this.room = room;
+        this.extraBeds = extraBeds;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
