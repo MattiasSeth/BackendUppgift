@@ -19,7 +19,7 @@ public class Booking {
     @Id
     @GeneratedValue
     private Long id;
-
+    //
     @ManyToOne
     private Customer customer;
 
