@@ -1,7 +1,9 @@
 package com.example.backenduppgift.Controllers;
 
-import com.example.backenduppgift.DTO.BookingDto;
+import com.example.backenduppgift.DTO.DetailedBookingDto;
+import com.example.backenduppgift.Services.BookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,21 +14,20 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class BookingController {
+    private final BookingService bookingService;
 
     @RequestMapping("Bookings")
-    public List<BookingDto> getAllBookingsDto(){
-        // TODO anropa BookingService som inte finns.
-        return new ArrayList<>();
+    public List<DetailedBookingDto> getAllBookingsDto(){
+        return bookingService.getAllBookings();
     }
 
-    @RequestMapping("Bookings/add")
-    public List<BookingDto> addBookingDto(@RequestBody BookingDto bookingDto){
-        // TODO anropa BookingService.save() som inte finns.
-        return new ArrayList<>();
+    @PostMapping("Bookings/add")
+    public String addBookingDto(@RequestBody DetailedBookingDto bookingDto){
+       return bookingService.addBookingDto(bookingDto);
     }
 
     @RequestMapping("Bookings/delete")
-    public List<BookingDto> deleteBookingDto(@RequestBody BookingDto bookingDto){
+    public List<DetailedBookingDto> deleteBookingDto(@RequestBody DetailedBookingDto bookingDto){
         // TODO anropa BookingService.delete() som inte finns.
         return new ArrayList<>();
     }

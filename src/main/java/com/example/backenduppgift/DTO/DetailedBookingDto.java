@@ -1,5 +1,7 @@
 package com.example.backenduppgift.DTO;
 
+import com.example.backenduppgift.Entities.Customer;
+import com.example.backenduppgift.Entities.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BookingDto {
+public class DetailedBookingDto {
+
     private Long id;
+
+    private CustomerDto customer;
+    private RoomDto room;
+
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;
+
 }
