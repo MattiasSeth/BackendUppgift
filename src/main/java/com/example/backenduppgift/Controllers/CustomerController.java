@@ -28,7 +28,7 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
-    @RequestMapping("customer/delete")
+    @PostMapping("customer/delete")
     public List<CustomerDto> deleteCustomerDto(@RequestBody CustomerDto customerDto){
         customerService.getAllCustomers().remove(customerDto);
         return customerService.getAllCustomers();
