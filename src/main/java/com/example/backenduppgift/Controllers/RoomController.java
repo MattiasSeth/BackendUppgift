@@ -32,7 +32,7 @@ public class RoomController {
         return roomService.getAllRoomDto();
     }
 
-    @RequestMapping("rooms/delete")
+    @PostMapping("rooms/delete")
     public List<RoomDto> deleteRoomDto(@RequestBody RoomDto roomDto){
         roomService.getAllRoomDto().remove(roomDto);
         return roomService.getAllRoomDto();

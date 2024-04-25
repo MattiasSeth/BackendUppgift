@@ -26,7 +26,7 @@ public class BookingController {
        return bookingService.addBookingDto(bookingDto);
     }
 
-    @RequestMapping("Bookings/delete")
+    @PostMapping("Bookings/delete")
     public List<DetailedBookingDto> deleteBookingDto(@RequestBody DetailedBookingDto bookingDto){
         // TODO anropa BookingService.delete() som inte finns.
         return new ArrayList<>();
