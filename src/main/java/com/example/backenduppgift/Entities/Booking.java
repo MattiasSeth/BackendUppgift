@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,13 +23,15 @@ public class Booking {
     @Id
     @GeneratedValue
     private Long id;
-    //
+
     @ManyToOne
     private Customer customer;
 
     @ManyToOne
     private Room room;
 
+    @Min(value = 0)
+    @Max(value = 1)
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;

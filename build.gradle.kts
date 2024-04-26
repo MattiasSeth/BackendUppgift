@@ -31,6 +31,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.hibernate:hibernate-validator:6.0.13.Final")
 }
 
 tasks.withType<Test> {
