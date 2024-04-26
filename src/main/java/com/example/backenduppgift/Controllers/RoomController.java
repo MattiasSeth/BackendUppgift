@@ -22,7 +22,7 @@ public class RoomController {
     private final RoomService roomService;
 
     @RequestMapping("rooms")
-    public List<RoomDto> getAllRoomsDto(){
+    public List<RoomDto> getAllRooms(){
         return roomService.getAllRoomDto();
     }
 
