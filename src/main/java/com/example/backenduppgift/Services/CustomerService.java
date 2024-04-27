@@ -9,4 +9,6 @@ public interface CustomerService {
     public CustomerDto customerToCustomerDto(Customer c);
 
     public List<CustomerDto> getAllCustomers();
+
+    public void deleteCustomerById(Long id);
 }

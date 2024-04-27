@@ -4,6 +4,7 @@ import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Repositories.CustomerRepository;
 import com.example.backenduppgift.DTO.CustomerDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDto> getAllCustomers() {
         return cr.findAll().stream().map(c->customerToCustomerDto(c)).toList();
+    }
 
+    @Override
+    @Transactional
+    public void deleteCustomerById(Long id) {
+        cr.deleteById(id);
     }
 }
