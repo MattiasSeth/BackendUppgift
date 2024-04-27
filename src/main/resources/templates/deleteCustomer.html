@@ -11,7 +11,7 @@
         <tbody>
         <tr th:each="customer : ${allCustomers}">
             <td th:text="${customer.name}"></td>
-            <td><a th:href="@{/deleteById/{id}(id=${customer.id})}">Delete</a></td>
+            <td><a th:href="@{/customer/deleteById/{id}(id=${customer.id})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
