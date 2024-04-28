@@ -29,4 +29,17 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomerById(Long id) {
         cr.deleteById(id);
     }
+
+    @Override
+    public String addCustomer(CustomerDto c) {
+        cr.save(customerDtoToCustomer(c));
+        return "Customer saved";
+    }
+
+    @Override
+    public Customer customerDtoToCustomer(CustomerDto c) {
+        return Customer.builder().id(c.getId()).name(c.getName()).build();
+    }
+
+
 }

@@ -24,14 +24,24 @@ public class CustomerController {
         model.addAttribute("customerTitle", "All Customers");
         return "showAllCustomers";
     }
-    /*
-    @PostMapping("/add")
-    public List<CustomerDto> addCustomerDto(@RequestBody CustomerDto customerDto){
-        customerService.getAllCustomers().add(customerDto);
-        return customerService.getAllCustomers();
+
+    @RequestMapping("/add")
+    public String addCustomer(){
+        return "addCustomer.html";
+    }
+    @PostMapping("/addDone")
+    public String addCustomerDone(@RequestParam String fname, @RequestParam String lname, Model model){
+        CustomerDto customer = new CustomerDto();
+        customer.setName(fname +" " +lname);
+        customerService.addCustomer(customer);
+
+        model.addAttribute("fname", fname);
+        model.addAttribute("lname", lname);
+        return "addCustomerDone.html";
     }
 
 
+    /*
     @PostMapping("customer/delete")
     public List<CustomerDto> deleteCustomerDto(@RequestBody CustomerDto customerDto){
         customerService.getAllCustomers().remove(customerDto);
@@ -51,5 +61,7 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
         return getAllWithDelete(model);
     }
+
+
 
 }

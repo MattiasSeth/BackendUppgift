@@ -11,4 +11,10 @@ public interface CustomerService {
     public List<CustomerDto> getAllCustomers();
 
     public void deleteCustomerById(Long id);
+
+    public String addCustomer (CustomerDto c);
+
+    public Customer customerDtoToCustomer (CustomerDto c);
+
+
 }
