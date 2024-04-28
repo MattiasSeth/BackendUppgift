@@ -48,7 +48,7 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
     */
-     @RequestMapping("/deleteCustomer")
+     @RequestMapping("/delete")
     public String getAllWithDelete (Model model) {
         List<CustomerDto> customers = customerService.getAllCustomers();
          model.addAttribute("allCustomers", customers);
