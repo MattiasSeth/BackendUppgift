@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,9 +52,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public boolean checkBookingsByCustomerId(Long id) {
-        if (br.findById(id) != null)
-            return true;
-        else
-            return false;
+        Optional<Booking> bookingOptional = br.findById(id);
+        return bookingOptional.isPresent();
     }
 }
