@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.Entities.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
@@ -31,13 +32,12 @@ public class CustomerController {
         return "addCustomer.html";
     }
     @PostMapping("/addDone")
-    public String addCustomerDone(@RequestParam String fname, @RequestParam String lname, Model model){
+    public String addCustomerDone(@RequestParam String name, Model model){
         CustomerDto customer = new CustomerDto();
-        customer.setName(fname +" " +lname);
+        customer.setName(name);
         customerService.addCustomer(customer);
 
-        model.addAttribute("fname", fname);
-        model.addAttribute("lname", lname);
+        model.addAttribute("name", name);
         return "redirect:/customer/all";
     }
 
@@ -55,6 +55,21 @@ public class CustomerController {
         return getAllWithDelete(model);
     }
 
+    @RequestMapping(path = "/edit/{id}")
+    public String editName (@PathVariable Long id, Model model){
+        Customer customer = customerService.getById(id);
+        model.addAttribute("Customer", customer);
+        return "editNameForm";
+    }
 
+    @PostMapping("/update")
+    public String updateCustomerName(Model model, CustomerDto customerDto){
+        customerService.addCustomer(customerDto);
+        List<CustomerDto> customers = customerService.getAllCustomers();
+        model.addAttribute("allCustomers", customers);
+        model.addAttribute("customerTitle", "All Customers");
+        model.addAttribute("addCustomer", "Add Customers");
+        return "showAllCustomers";
+    }
 
 }

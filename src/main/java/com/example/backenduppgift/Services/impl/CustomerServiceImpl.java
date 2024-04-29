@@ -41,5 +41,10 @@ public class CustomerServiceImpl implements CustomerService {
         return Customer.builder().id(c.getId()).name(c.getName()).build();
     }
 
+    @Override
+    public Customer getById(Long id) {
+        return cr.findById(id).get();
+    }
+
 
 }
