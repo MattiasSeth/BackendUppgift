@@ -22,6 +22,7 @@ public class CustomerController {
         List<CustomerDto> customers = customerService.getAllCustomers();
         model.addAttribute("allCustomers", customers);
         model.addAttribute("customerTitle", "All Customers");
+        model.addAttribute("addCustomer", "Add Customers");
         return "showAllCustomers";
     }
 
@@ -37,23 +38,15 @@ public class CustomerController {
 
         model.addAttribute("fname", fname);
         model.addAttribute("lname", lname);
-        return "addCustomerDone.html";
+        return "redirect:/customer/all";
     }
 
-
-    /*
-    @PostMapping("customer/delete")
-    public List<CustomerDto> deleteCustomerDto(@RequestBody CustomerDto customerDto){
-        customerService.getAllCustomers().remove(customerDto);
-        return customerService.getAllCustomers();
-    }
-    */
      @RequestMapping("/delete")
     public String getAllWithDelete (Model model) {
         List<CustomerDto> customers = customerService.getAllCustomers();
          model.addAttribute("allCustomers", customers);
          model.addAttribute("customerTitle", "All Customers");
-         return "deleteCustomer";
+         return "redirect:/customer/all";
      }
 
     @RequestMapping(path = "/deleteById/{id}")
