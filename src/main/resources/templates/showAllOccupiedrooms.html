@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text="${roomTitle}"></h2>
+<div class="allBookings" th:unless="${#lists.isEmpty(allBookings)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Room Type</th>
+            <th>Extra Beds</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Bookings  : ${allBookings}">
+            <td th:text="${Bookings.customer.name}"></td>
+            <td th:text="${Bookings.room.roomType}"></td>
+            <td th:text="${Bookings.extraBeds}"></td>
+            <td th:text="${Bookings.startDate}"></td>
+            <td th:text="${Bookings.endDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--
+<p></p>
+<h2 th:text="${addCustomer}"></h2>
+<form action="#" th:action="@{/customer/addDone}" method="post" >
+    <label for="name">Name:</label><br>
+    <input type="text" name="name" id="name" value=""><br><br>
+    <input type="submit" value="Submit">
+</form>
+-->
+
+
+</body>
+</html>
