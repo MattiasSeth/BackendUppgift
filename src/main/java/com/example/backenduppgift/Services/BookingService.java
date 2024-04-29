@@ -18,4 +18,6 @@ public interface BookingService {
     public List<DetailedBookingDto> getAllBookings();
 
     public String addBookingDto(DetailedBookingDto bookingDto);
+
+    public boolean checkBookingsByCustomerId(Long id);
 }

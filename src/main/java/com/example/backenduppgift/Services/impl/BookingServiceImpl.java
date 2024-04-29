@@ -48,4 +48,12 @@ public class BookingServiceImpl implements BookingService {
         br.save(bookingToDetailedBookingDto(bookingDto));
         return "The booking has been saved";
     }
+
+    @Override
+    public boolean checkBookingsByCustomerId(Long id) {
+        if (br.findById(id) != null)
+            return true;
+        else
+            return false;
+    }
 }

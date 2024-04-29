@@ -1,6 +1,7 @@
 package com.example.backenduppgift.Controllers;
 
 import com.example.backenduppgift.Entities.Customer;
+import com.example.backenduppgift.Services.BookingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
@@ -16,7 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/customer")
 public class CustomerController {
+
     private final CustomerService customerService;
+    private final BookingService bookingService;
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
@@ -49,9 +52,12 @@ public class CustomerController {
          return "redirect:/customer/all";
      }
 
-    @RequestMapping(path = "/deleteById/{id}")
+    @RequestMapping(path = "/deleteById/{id}")   // Funkar! Men kanske ska fixa else delen om man har tid!
     public String deleteCap(@PathVariable Long id, Model model) {
-        customerService.deleteCustomerById(id);
+        boolean bookings = bookingService.checkBookingsByCustomerId(id);
+        if (!bookings)
+            customerService.deleteCustomerById(id);
+
         return getAllWithDelete(model);
     }
 
