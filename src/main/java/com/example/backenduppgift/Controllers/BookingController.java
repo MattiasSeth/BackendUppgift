@@ -2,7 +2,11 @@ package com.example.backenduppgift.Controllers;
 
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
+import com.example.backenduppgift.Entities.Booking;
+import com.example.backenduppgift.Entities.Customer;
+import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
+import com.example.backenduppgift.Services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,7 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService bookingService;
+    private final CustomerService customerService;
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
@@ -42,26 +47,25 @@ public class BookingController {
         return getAllWithDelete(model);
     }
 
+    @RequestMapping(path = "/edit/{id}")
+    public String editName (@PathVariable Long id, Model model){
+        Booking booking = bookingService.getById(id);
+        Room room = booking.getRoom();
+        //Customer customer = customerService.getById(id);
+        model.addAttribute("Room", room);
+        model.addAttribute("EndDate", booking.getEndDate());
+        //model.addAttribute("Customer", customer);
+        return "editBookingForm";
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @PostMapping("/update")
+    public String updateCustomerName(Model model, DetailedBookingDto detailedBookingDto){
+        //bookingService.addCustomer(detailedBookingDto);
+        List<DetailedBookingDto> bookings = bookingService.getAllBookings();
+        model.addAttribute("allBookings", bookings);
+        model.addAttribute("roomTitle", "All occupied rooms");
+        return "showAllOccupiedrooms";
+    }
 
 
 

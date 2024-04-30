@@ -63,4 +63,9 @@ public class BookingServiceImpl implements BookingService {
         br.deleteById(id);
     }
 
+    @Override
+    public Booking getById(Long id) {
+        return br.findById(id).get();
+    }
+
 }

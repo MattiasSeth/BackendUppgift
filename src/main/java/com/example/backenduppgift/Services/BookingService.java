@@ -3,6 +3,7 @@ package com.example.backenduppgift.Services;
 import com.example.backenduppgift.DTO.BookingDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.Entities.Booking;
+import com.example.backenduppgift.Entities.Customer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,4 +23,5 @@ public interface BookingService {
     public boolean checkBookingsByCustomerId(Long id);
 
     public void deleteBookingById(Long id);
+    public Booking getById(Long id);
 }
