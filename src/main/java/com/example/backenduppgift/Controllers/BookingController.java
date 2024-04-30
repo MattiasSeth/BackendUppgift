@@ -6,10 +6,7 @@ import com.example.backenduppgift.Services.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +28,19 @@ public class BookingController {
     }
 
 
+    @RequestMapping("/delete")
+    public String getAllWithDelete (Model model) {
+        List<DetailedBookingDto> bookings = bookingService.getAllBookings();
+        model.addAttribute("allBookings", bookings);
+        model.addAttribute("roomTitle", "All occupied rooms");
+        return "redirect:/bookings/all";
+    }
 
+    @RequestMapping(path = "/deleteById/{id}")
+    public String deleteCap(@PathVariable Long id, Model model) {
+        bookingService.deleteBookingById(id);
+        return getAllWithDelete(model);
+    }
 
 
 

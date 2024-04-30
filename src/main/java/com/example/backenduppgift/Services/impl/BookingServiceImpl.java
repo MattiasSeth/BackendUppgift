@@ -9,6 +9,7 @@ import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.BookingService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +56,11 @@ public class BookingServiceImpl implements BookingService {
         Optional<Booking> bookingOptional = br.findById(id);
         return bookingOptional.isPresent();
     }
+
+    @Override
+    @Transactional
+    public void deleteBookingById(Long id) {
+        br.deleteById(id);
+    }
+
 }

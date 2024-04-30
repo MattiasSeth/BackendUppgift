@@ -20,4 +20,6 @@ public interface BookingService {
     public String addBookingDto(DetailedBookingDto bookingDto);
 
     public boolean checkBookingsByCustomerId(Long id);
+
+    public void deleteBookingById(Long id);
 }
