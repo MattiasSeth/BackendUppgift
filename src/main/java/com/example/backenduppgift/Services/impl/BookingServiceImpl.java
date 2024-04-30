@@ -11,6 +11,7 @@ import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -65,4 +66,16 @@ public class BookingServiceImpl implements BookingService {
         return DetailedBookingDto.builder().id(booking.getId()).extraBeds(booking.getExtraBeds()).startDate(booking.getStartDate())
                 .endDate(booking.getEndDate()).customer(customerService.customerToCustomerDto(customer)).room(roomService.roomToRoomDto(room)).build();
     }
+
+    @Override
+    @Transactional
+    public void deleteBookingById(Long id) {
+        br.deleteById(id);
+    }
+
+    @Override
+    public Booking getById(Long id) {
+        return br.findById(id).get();
+    }
+
 }
