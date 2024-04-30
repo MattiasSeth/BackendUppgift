@@ -9,6 +9,8 @@ import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.BookingService;
+import com.example.backenduppgift.Services.CustomerService;
+import com.example.backenduppgift.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     final private BookingRepository br;
+    private final CustomerService customerService;
+    private final RoomService roomService;
     @Override
     public BookingDto bookingToBookingDto(Booking b) {
         return BookingDto.builder().id(b.getId()).extraBeds(b.getExtraBeds()).startDate(b.getStartDate()).endDate(b.getEndDate()).build();
@@ -54,5 +58,11 @@ public class BookingServiceImpl implements BookingService {
     public boolean checkBookingsByCustomerId(Long id) {
         Optional<Booking> bookingOptional = br.findById(id);
         return bookingOptional.isPresent();
+    }
+
+    @Override
+    public DetailedBookingDto bookingToDetailedBookingDto(Booking booking, Customer customer, Room room) {
+        return DetailedBookingDto.builder().id(booking.getId()).extraBeds(booking.getExtraBeds()).startDate(booking.getStartDate())
+                .endDate(booking.getEndDate()).customer(customerService.customerToCustomerDto(customer)).room(roomService.roomToRoomDto(room)).build();
     }
 }
