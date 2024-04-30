@@ -44,7 +44,7 @@ class RoomControllerTest {
 
         List<Room> rooms = Arrays.asList(c1, c2, c3, c4);
 
-        when(roomService.getAllRoomDto()).thenReturn(
+        when(roomService.getAllRooms()).thenReturn(
                 rooms.stream().map(this::roomToRoomDto).toList()
         );
     }
