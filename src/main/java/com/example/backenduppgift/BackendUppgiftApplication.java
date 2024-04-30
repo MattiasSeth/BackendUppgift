@@ -61,8 +61,8 @@ public class BackendUppgiftApplication {
             roomRepository.save(r10);
 
             // Dates
-            LocalDate startDate = LocalDate.of(2024, 4, 22);
-            LocalDate endDate = LocalDate.of(2024, 4, 30);
+            LocalDate startDate = LocalDate.of(2022, 4, 22);
+            LocalDate endDate = LocalDate.of(2025, 4, 30);
 
             // Bookings
             bookingRepository.save(new Booking(c1,r1,0,startDate,endDate));

@@ -15,6 +15,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +79,25 @@ public class BookingServiceImpl implements BookingService {
     public Booking getById(Long id) {
         return br.findById(id).get();
     }
+
+    @Override
+    public List<RoomDto> findAvailableRooms(LocalDate startDate, LocalDate endDate) {
+        List<DetailedBookingDto> currentBookings = getAllBookings();
+        List<RoomDto> allRooms = roomService.getAllRooms();
+        List<RoomDto> availableRooms = new ArrayList<>(allRooms);
+
+        for (DetailedBookingDto booking : currentBookings) {
+            LocalDate bookingStartDate = booking.getStartDate();
+            LocalDate bookingEndDate = booking.getEndDate();
+
+            if (!(endDate.isBefore(bookingStartDate) || startDate.isAfter(bookingEndDate))) {
+                Long roomId = booking.getRoom().getId();
+                availableRooms.removeIf(room -> room.getId().equals(roomId));
+            }
+        }
+        return availableRooms;
+    }
+
+
 
 }

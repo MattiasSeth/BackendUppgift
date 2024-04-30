@@ -16,8 +16,13 @@ public class RoomServiceImpl implements RoomService {
     final private RoomRepository roomRepository;
 
     @Override
-    public List<RoomDto> getAllRoomDto() {
+    public List<RoomDto> getAllRooms() {
         return roomRepository.findAll().stream().map(r -> roomToRoomDto(r)).toList();
+    }
+
+    @Override
+    public RoomDto getById(Long id) {
+        return roomToRoomDto(roomRepository.findById(id).get());
     }
 
     @Override

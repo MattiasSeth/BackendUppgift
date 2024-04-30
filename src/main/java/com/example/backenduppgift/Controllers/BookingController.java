@@ -2,6 +2,7 @@ package com.example.backenduppgift.Controllers;
 
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
+import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class BookingController {
     private final CustomerService customerService;
 
     @RequestMapping("/all")
-    public String getAllCustomers(Model model){
+    public String getAllBookings(Model model){
         List<DetailedBookingDto> bookings = bookingService.getAllBookings();
         model.addAttribute("allBookings", bookings);
         model.addAttribute("roomTitle", "All occupied rooms");
@@ -52,12 +54,12 @@ public class BookingController {
         Booking booking = bookingService.getById(id);
         Room room = booking.getRoom();
         //Customer customer = customerService.getById(id);
-        model.addAttribute("Room", room);
-        model.addAttribute("EndDate", booking.getEndDate());
+        //model.addAttribute("Room", room);
+        //model.addAttribute("EndDate", booking.getEndDate());
         //model.addAttribute("Customer", customer);
         return "editBookingForm";
     }
-
+    /* NOT USED right now
     @PostMapping("/update")
     public String updateCustomerName(Model model, DetailedBookingDto detailedBookingDto){
         //bookingService.addCustomer(detailedBookingDto);
@@ -66,6 +68,36 @@ public class BookingController {
         model.addAttribute("roomTitle", "All occupied rooms");
         return "showAllOccupiedrooms";
     }
+
+     */
+
+    @PostMapping("/updateDates")
+    public String updateBookingDates(@RequestParam("startDate") LocalDate startDate,
+                                     @RequestParam("endDate") LocalDate endDate,
+                                     Model model) {
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
+        model.addAttribute("availableRooms", availableRooms);
+        return "displayDates";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

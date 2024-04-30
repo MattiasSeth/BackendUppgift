@@ -7,7 +7,18 @@
 <body>
     <h2>Edit Booking</h2>
 
-    <p th:text="'Room Type: ' + ${Room}"></p>
+    <!-- <p th:text="'Room Type: ' + ${Room}"></p> -->
+    <form action="/bookings/updateDates" method="post">
+    <label for="startDate">Start Date:</label><br>
+        <input type="date" id="startDate" name="startDate"><br><br>
+
+        <label for="endDate">End Date:</label><br>
+        <input type="date" id="endDate" name="endDate"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!--
     <form action="#" method="post">
         <button type="submit">Change Room</button>
     </form>
@@ -16,6 +27,7 @@
     <form action="#" method="post">
         <button type="submit">Change date</button>
     </form>
+    -->
 
 </body>
 </html>

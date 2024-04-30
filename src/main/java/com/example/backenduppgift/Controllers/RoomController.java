@@ -23,19 +23,19 @@ public class RoomController {
 
     @RequestMapping("rooms")
     public List<RoomDto> getAllRooms(){
-        return roomService.getAllRoomDto();
+        return roomService.getAllRooms();
     }
 
     @PostMapping("rooms/add")
     public List<RoomDto> addRoomDto(@RequestBody RoomDto roomDto){
-        roomService.getAllRoomDto().add(roomDto);
-        return roomService.getAllRoomDto();
+        roomService.getAllRooms().add(roomDto);
+        return roomService.getAllRooms();
     }
 
     @PostMapping("rooms/delete")
     public List<RoomDto> deleteRoomDto(@RequestBody RoomDto roomDto){
-        roomService.getAllRoomDto().remove(roomDto);
-        return roomService.getAllRoomDto();
+        roomService.getAllRooms().remove(roomDto);
+        return roomService.getAllRooms();
     }
 
 
