@@ -1,5 +1,7 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.Entities.Customer;
+import com.example.backenduppgift.Services.BookingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
@@ -15,13 +17,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/customer")
 public class CustomerController {
+
     private final CustomerService customerService;
+    private final BookingService bookingService;
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
         List<CustomerDto> customers = customerService.getAllCustomers();
         model.addAttribute("allCustomers", customers);
         model.addAttribute("customerTitle", "All Customers");
+        model.addAttribute("addCustomer", "Add Customers");
         return "showAllCustomers";
     }
 
@@ -30,38 +35,47 @@ public class CustomerController {
         return "addCustomer.html";
     }
     @PostMapping("/addDone")
-    public String addCustomerDone(@RequestParam String fname, @RequestParam String lname, Model model){
+    public String addCustomerDone(@RequestParam String name, Model model){
         CustomerDto customer = new CustomerDto();
-        customer.setName(fname +" " +lname);
+        customer.setName(name);
         customerService.addCustomer(customer);
 
-        model.addAttribute("fname", fname);
-        model.addAttribute("lname", lname);
-        return "addCustomerDone.html";
+        model.addAttribute("name", name);
+        return "redirect:/customer/all";
     }
 
-
-    /*
-    @PostMapping("customer/delete")
-    public List<CustomerDto> deleteCustomerDto(@RequestBody CustomerDto customerDto){
-        customerService.getAllCustomers().remove(customerDto);
-        return customerService.getAllCustomers();
-    }
-    */
      @RequestMapping("/delete")
     public String getAllWithDelete (Model model) {
         List<CustomerDto> customers = customerService.getAllCustomers();
          model.addAttribute("allCustomers", customers);
          model.addAttribute("customerTitle", "All Customers");
-         return "deleteCustomer";
+         return "redirect:/customer/all";
      }
 
-    @RequestMapping(path = "/deleteById/{id}")
+    @RequestMapping(path = "/deleteById/{id}")   // Funkar! Men kanske ska fixa else delen om man har tid!
     public String deleteCap(@PathVariable Long id, Model model) {
-        customerService.deleteCustomerById(id);
+        boolean bookings = bookingService.checkBookingsByCustomerId(id);
+        if (!bookings)
+            customerService.deleteCustomerById(id);
+
         return getAllWithDelete(model);
     }
 
+    @RequestMapping(path = "/edit/{id}")
+    public String editName (@PathVariable Long id, Model model){
+        Customer customer = customerService.getById(id);
+        model.addAttribute("Customer", customer);
+        return "editNameForm";
+    }
 
+    @PostMapping("/update")
+    public String updateCustomerName(Model model, CustomerDto customerDto){
+        customerService.addCustomer(customerDto);
+        List<CustomerDto> customers = customerService.getAllCustomers();
+        model.addAttribute("allCustomers", customers);
+        model.addAttribute("customerTitle", "All Customers");
+        model.addAttribute("addCustomer", "Add Customers");
+        return "showAllCustomers";
+    }
 
 }

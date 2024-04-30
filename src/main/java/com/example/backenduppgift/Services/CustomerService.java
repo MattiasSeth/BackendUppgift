@@ -16,5 +16,7 @@ public interface CustomerService {
 
     public Customer customerDtoToCustomer (CustomerDto c);
 
+    public Customer getById(Long id);
+
 
 }
