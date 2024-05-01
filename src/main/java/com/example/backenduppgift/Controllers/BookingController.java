@@ -1,13 +1,12 @@
 package com.example.backenduppgift.Controllers;
 
-import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
-import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
+import com.example.backenduppgift.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +23,13 @@ public class BookingController {
 
     private final BookingService bookingService;
     private final CustomerService customerService;
+    private final RoomService roomService;
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
         List<DetailedBookingDto> bookings = bookingService.getAllBookings();
         model.addAttribute("allBookings", bookings);
-        model.addAttribute("roomTitle", "All occupied rooms");
+        model.addAttribute("roomTitle", "Bookings");
         //model.addAttribute("addCustomer", "Add Customers");
         return "showAllOccupiedrooms";
     }
@@ -50,16 +50,32 @@ public class BookingController {
     }
 
     @RequestMapping(path = "/edit/{id}")
-    public String editName (@PathVariable Long id, Model model){
+    public String editBooking(@PathVariable Long id, Model model){
         Booking booking = bookingService.getById(id);
         Room room = booking.getRoom();
-        //Customer customer = customerService.getById(id);
-        //model.addAttribute("Room", room);
-        //model.addAttribute("EndDate", booking.getEndDate());
-        //model.addAttribute("Customer", customer);
-        return "editBookingForm";
+        return "enterNewDates";
     }
-    /* NOT USED right now
+
+    @PostMapping("/avaliblerooms")
+    public String updateBookingDates(@RequestParam("startDate") LocalDate startDate,
+                                     @RequestParam("endDate") LocalDate endDate,
+                                     Model model) {
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        List<RoomDto> availableRooms = bookingService.findAvailableRooms2(startDate, endDate);
+        model.addAttribute("availableRooms", availableRooms);
+        return "displayAvalibleRooms";
+    }
+    @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
+    public String extraBeds(@PathVariable Long id, Model model) {
+        Room room = roomService.getById(id);
+        model.addAttribute("roomId", id);
+        model.addAttribute("roomType", room.getRoomType());
+        return "setExtraBeds";
+    }
+
+
+/* NOT USED right now
     @PostMapping("/update")
     public String updateCustomerName(Model model, DetailedBookingDto detailedBookingDto){
         //bookingService.addCustomer(detailedBookingDto);
@@ -70,19 +86,6 @@ public class BookingController {
     }
 
      */
-
-    @PostMapping("/updateDates")
-    public String updateBookingDates(@RequestParam("startDate") LocalDate startDate,
-                                     @RequestParam("endDate") LocalDate endDate,
-                                     Model model) {
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
-        List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
-        model.addAttribute("availableRooms", availableRooms);
-        return "displayDates";
-    }
-
-
 
 
 

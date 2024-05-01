@@ -66,6 +66,7 @@ public class BackendUppgiftApplication {
 
             // Bookings
             bookingRepository.save(new Booking(c1,r1,0,startDate,endDate));
+            bookingRepository.save(new Booking(c2,r2,0,startDate,endDate));
         };
     }
 }

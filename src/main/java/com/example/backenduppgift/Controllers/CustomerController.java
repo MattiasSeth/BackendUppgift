@@ -57,7 +57,6 @@ public class CustomerController {
         boolean bookings = bookingService.checkBookingsByCustomerId(id);
         if (!bookings)
             customerService.deleteCustomerById(id);
-
         return getAllWithDelete(model);
     }
 

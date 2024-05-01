@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Extra Beds</title>
+</head>
+<body>
+<h2>Set Extra Beds for Room <span th:text="${roomType}"></span></h2>
+<form action="/bookings/processExtraBeds" method="post">
+    <input type="hidden" name="roomId" th:value="${roomId}" /> <!-- Hidden field to pass room ID -->
+    <label for="extraBeds">Select number of extra beds:</label>
+    <select id="extraBeds" name="extraBeds">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

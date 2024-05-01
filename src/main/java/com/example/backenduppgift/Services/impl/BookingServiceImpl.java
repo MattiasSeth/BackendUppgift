@@ -98,6 +98,24 @@ public class BookingServiceImpl implements BookingService {
         return availableRooms;
     }
 
+    @Override // for rebooking
+    public List<RoomDto> findAvailableRooms2(LocalDate startDate, LocalDate endDate) {
+        List<DetailedBookingDto> currentBookings = getAllBookings();
+        List<RoomDto> allRooms = roomService.getAllRooms();
+        List<RoomDto> availableRooms = new ArrayList<>(allRooms);
+
+        for (DetailedBookingDto booking : currentBookings) {
+            LocalDate bookingStartDate = booking.getStartDate();
+            LocalDate bookingEndDate = booking.getEndDate();
+
+            if (!(endDate.isBefore(bookingStartDate) || startDate.isAfter(bookingEndDate))) {
+                Long roomId = booking.getRoom().getId();
+                availableRooms.removeIf(room -> room.getId().equals(roomId));
+            }
+        }
+        return availableRooms;
+    }
+
 
 
 }

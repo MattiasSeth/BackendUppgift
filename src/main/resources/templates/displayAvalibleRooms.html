@@ -15,16 +15,18 @@
   <tr>
     <th>Room ID</th>
     <th>Room Type</th>
-    <th>Room Size</th>
+    <th>Possible extra beds</th>
   </tr>
   </thead>
   <tbody>
-  <!-- Iterate over available rooms and display them -->
+
   <tr th:each="room : ${availableRooms}">
     <td th:text="${room.id}"></td>
     <td th:text="${room.roomType}"></td>
     <td th:text="${room.size}"></td>
+    <td><a th:href="@{/bookings/avaliblerooms/extrabeds/{id}(id=${room.id})}">Change booking details</a></td>
   </tr>
+
   </tbody>
 </table>
 </body>

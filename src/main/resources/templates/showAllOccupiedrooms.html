@@ -25,7 +25,7 @@
             <td th:text="${Bookings.startDate}"></td>
             <td th:text="${Bookings.endDate}"></td>
             <td><a th:href="@{/bookings/deleteById/{id}(id=${Bookings.id})}">Delete</a></td>
-            <td><a th:href="@{/bookings/edit/{id}(id=${Bookings.id})}">Change name</a></td>
+            <td><a th:href="@{/bookings/edit/{id}(id=${Bookings.id})}">Change booking details</a></td>
         </tr>
         </tbody>
     </table>
