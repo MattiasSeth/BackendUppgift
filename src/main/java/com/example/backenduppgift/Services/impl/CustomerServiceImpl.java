@@ -46,5 +46,10 @@ public class CustomerServiceImpl implements CustomerService {
         return cr.findById(id).get();
     }
 
+    @Override
+    public Customer getByName(String name) {
+        return cr.findByName(name);
+    }
+
 
 }

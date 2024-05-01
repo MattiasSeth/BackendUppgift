@@ -8,6 +8,7 @@ import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
+import com.example.backenduppgift.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,9 @@ public class BookingController {
 
     private final BookingService bookingService;
     private final CustomerService customerService;
+    private final RoomService roomService;
+    private Customer customer;
+    private Room room;
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -81,6 +85,21 @@ public class BookingController {
         model.addAttribute("availableRooms", availableRooms);
         return "displayDates";
     }
+    @RequestMapping("Bookings/add")
+    public String addBookings(){
+        return "addBooking";
+    }
+    @RequestMapping("Bookings/add")
+    public String addBookingsReceiver(@RequestParam String customer, @RequestParam Long room, @RequestParam int extraBeds,
+                                      @RequestParam LocalDate startDate,@RequestParam LocalDate endDate, Model model){
+        Booking booking = new Booking(customerService.getByName(customer), roomService.roomDtoToRoom(roomService.getById(room)), extraBeds, startDate, endDate);
+        model.addAttribute("customer", customerService.getByName(customer));
+        model.addAttribute("room", roomService.getById(room));
+        model.addAttribute("extraBeds", extraBeds);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        return "showAllOccupiedrooms";
+    }
 
 
 
@@ -99,8 +118,7 @@ public class BookingController {
 
 
 
-
-
+/*
     @RequestMapping("Bookings")
     public List<DetailedBookingDto> getAllBookingsDto(){
         return bookingService.getAllBookings();
@@ -116,7 +134,7 @@ public class BookingController {
         // TODO anropa BookingService.delete() som inte finns.
         return new ArrayList<>();
     }
-
+*/
 
 
 }

@@ -18,5 +18,5 @@ public interface CustomerService {
 
     public Customer getById(Long id);
 
-
+    public Customer getByName(String name);
 }
