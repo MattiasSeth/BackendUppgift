@@ -10,9 +10,7 @@
     <input type="hidden" name="roomId" th:value="${roomId}" />
     <label for="extraBeds">Select number of extra beds:</label>
     <select id="extraBeds" name="extraBeds">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
+        <option th:each="i : ${#numbers.sequence(0, roomSize)}" th:value="${i}" th:text="${i}"></option>
     </select>
     <br><br>
     <button type="submit">Submit</button>

@@ -92,6 +92,7 @@ public class BookingController {
 
         model.addAttribute("roomId", id);
         model.addAttribute("roomType", room.getRoomType());
+        model.addAttribute("roomSize", room.getSize());
         return "setExtraBeds";
     }
     @PostMapping("/processExtraBeds")
