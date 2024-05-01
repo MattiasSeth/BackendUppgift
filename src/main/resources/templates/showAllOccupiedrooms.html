@@ -25,22 +25,11 @@
             <td th:text="${Bookings.startDate}"></td>
             <td th:text="${Bookings.endDate}"></td>
             <td><a th:href="@{/bookings/deleteById/{id}(id=${Bookings.id})}">Delete</a></td>
-            <td><a th:href="@{/bookings/edit/{id}(id=${Bookings.id})}">Change booking details</a></td>
+            <td><a th:href="@{/bookings/edit/{id}(id=${Bookings.id})}">Edit booking</a></td>
         </tr>
         </tbody>
     </table>
 </div>
-
-<!--
-<p></p>
-<h2 th:text="${addCustomer}"></h2>
-<form action="#" th:action="@{/customer/addDone}" method="post" >
-    <label for="name">Name:</label><br>
-    <input type="text" name="name" id="name" value=""><br><br>
-    <input type="submit" value="Submit">
-</form>
--->
-
 
 </body>
 </html>

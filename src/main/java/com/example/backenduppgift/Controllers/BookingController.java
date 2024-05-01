@@ -3,10 +3,12 @@ package com.example.backenduppgift.Controllers;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
+import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +52,13 @@ public class BookingController {
     }
 
     @RequestMapping(path = "/edit/{id}")
-    public String editBooking(@PathVariable Long id, Model model){
+    public String editBooking(@PathVariable Long id, Model model, HttpSession session){
         Booking booking = bookingService.getById(id);
+        Long customerId = booking.getCustomer().getId();
+
+        bookingService.deleteBookingById(id);
+        session.setAttribute("customerId", customerId);
+
         Room room = booking.getRoom();
         return "enterNewDates";
     }
@@ -59,20 +66,55 @@ public class BookingController {
     @PostMapping("/avaliblerooms")
     public String updateBookingDates(@RequestParam("startDate") LocalDate startDate,
                                      @RequestParam("endDate") LocalDate endDate,
-                                     Model model) {
+                                     Model model, HttpSession session) {
+
+        Long customerId = (Long) session.getAttribute("customerId");
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
+
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
-        List<RoomDto> availableRooms = bookingService.findAvailableRooms2(startDate, endDate);
+        List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
         model.addAttribute("availableRooms", availableRooms);
+
         return "displayAvalibleRooms";
     }
     @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
-    public String extraBeds(@PathVariable Long id, Model model) {
+    public String extraBeds(@PathVariable Long id, Model model, HttpSession session) {
+        Long customerId = (Long) session.getAttribute("customerId");
+        LocalDate startDate = (LocalDate) session.getAttribute("startDate");
+        LocalDate endDate = (LocalDate) session.getAttribute("endDate");
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
         Room room = roomService.getById(id);
+
         model.addAttribute("roomId", id);
         model.addAttribute("roomType", room.getRoomType());
         return "setExtraBeds";
     }
+    @PostMapping("/processExtraBeds")
+    public String processExtraBeds(@RequestParam("roomId") Long roomId,
+                                   @RequestParam("extraBeds") int extraBeds,
+                                   HttpSession session) {
+        Long customerId = (Long) session.getAttribute("customerId");
+        LocalDate startDate = (LocalDate) session.getAttribute("startDate");
+        LocalDate endDate = (LocalDate) session.getAttribute("endDate");
+
+        /*
+        System.out.println(customerId);
+        System.out.println(startDate);
+        System.out.println(endDate);
+        System.out.println(roomId);
+        System.out.println(extraBeds);
+
+         */
+
+
+        return "redirect:/bookings/all";
+    }
+
 
 
 /* NOT USED right now

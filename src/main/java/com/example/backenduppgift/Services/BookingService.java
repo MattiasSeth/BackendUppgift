@@ -31,5 +31,5 @@ public interface BookingService {
     public Booking getById(Long id);
 
     public List<RoomDto> findAvailableRooms(LocalDate startDate, LocalDate endDate);
-    public List<RoomDto> findAvailableRooms2(LocalDate startDate, LocalDate endDate); // for rebooking
+
 }
