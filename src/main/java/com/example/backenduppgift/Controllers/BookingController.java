@@ -103,49 +103,8 @@ public class BookingController {
         LocalDate startDate = (LocalDate) session.getAttribute("startDate");
         LocalDate endDate = (LocalDate) session.getAttribute("endDate");
 
-        /*
-        System.out.println(customerId);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(roomId);
-        System.out.println(extraBeds);
-
-         */
-
-
         return "redirect:/bookings/all";
     }
-
-
-
-/* NOT USED right now
-    @PostMapping("/update")
-    public String updateCustomerName(Model model, DetailedBookingDto detailedBookingDto){
-        //bookingService.addCustomer(detailedBookingDto);
-        List<DetailedBookingDto> bookings = bookingService.getAllBookings();
-        model.addAttribute("allBookings", bookings);
-        model.addAttribute("roomTitle", "All occupied rooms");
-        return "showAllOccupiedrooms";
-    }
-
-     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @RequestMapping("Bookings")
     public List<DetailedBookingDto> getAllBookingsDto(){
@@ -162,7 +121,5 @@ public class BookingController {
         // TODO anropa BookingService.delete() som inte finns.
         return new ArrayList<>();
     }
-
-
 
 }
