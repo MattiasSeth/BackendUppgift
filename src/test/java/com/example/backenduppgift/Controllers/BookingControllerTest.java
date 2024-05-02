@@ -35,7 +35,7 @@ public class BookingControllerTest {
         RoomDto room1 = new RoomDto(1L, "Single", 1);
         DetailedBookingDto booking1 = new DetailedBookingDto(1L, customer1, room1, 0, LocalDate.now(), LocalDate.now().plusDays(1));
 
-        CustomerDto customer2 = new CustomerDto(2L, "Double");
+        CustomerDto customer2 = new CustomerDto(2L, "Seth");
         RoomDto room2 = new RoomDto(2L, "Double", 2);
         DetailedBookingDto booking2 = new DetailedBookingDto(2L, customer2, room2, 1, LocalDate.now(), LocalDate.now().plusDays(2));
 
@@ -65,9 +65,9 @@ public class BookingControllerTest {
     @Test
     public void testAddBooking() throws Exception {
         mockMvc.perform(post("/bookings/addReceiver")
-                        .param("customerName", "John Doe")
-                        .param("startDate", "2022-01-01")
-                        .param("endDate", "2022-01-02"))
+                        .param("customerName", "Gustav")
+                        .param("startDate", "2024-05-10")
+                        .param("endDate", "2024-05-11"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("displayAvalibleRooms"));
     }
