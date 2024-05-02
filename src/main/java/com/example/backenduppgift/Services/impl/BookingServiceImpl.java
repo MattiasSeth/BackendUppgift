@@ -98,6 +98,4 @@ public class BookingServiceImpl implements BookingService {
         return availableRooms;
     }
 
-
-
 }

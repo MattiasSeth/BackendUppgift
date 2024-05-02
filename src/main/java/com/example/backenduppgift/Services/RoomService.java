@@ -11,6 +11,8 @@ public interface RoomService {
 
     public List<RoomDto> getAllRooms();
 
+    //public RoomDto getById(Long id);
+    public Room getByIdToRoom(Long id);
     public RoomDto getById(Long id);
 
     Room roomDtoToRoom(RoomDto roomDto);

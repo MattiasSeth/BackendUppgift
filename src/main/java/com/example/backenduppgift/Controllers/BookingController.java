@@ -1,6 +1,5 @@
 package com.example.backenduppgift.Controllers;
 
-import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
@@ -9,6 +8,8 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
+import com.example.backenduppgift.Services.RoomService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class BookingController {
     private final RoomService roomService;
     private Customer customer;
     private Room room;
+
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -54,36 +56,32 @@ public class BookingController {
     }
 
     @RequestMapping(path = "/edit/{id}")
-    public String editName (@PathVariable Long id, Model model){
+    public String editBooking(@PathVariable Long id, Model model, HttpSession session){
         Booking booking = bookingService.getById(id);
+        Long customerId = booking.getCustomer().getId();
+
+        bookingService.deleteBookingById(id);
+        session.setAttribute("customerId", customerId);
+
         Room room = booking.getRoom();
-        //Customer customer = customerService.getById(id);
-        //model.addAttribute("Room", room);
-        //model.addAttribute("EndDate", booking.getEndDate());
-        //model.addAttribute("Customer", customer);
-        return "editBookingForm";
-    }
-    /* NOT USED right now
-    @PostMapping("/update")
-    public String updateCustomerName(Model model, DetailedBookingDto detailedBookingDto){
-        //bookingService.addCustomer(detailedBookingDto);
-        List<DetailedBookingDto> bookings = bookingService.getAllBookings();
-        model.addAttribute("allBookings", bookings);
-        model.addAttribute("roomTitle", "All occupied rooms");
-        return "showAllOccupiedrooms";
+        return "enterNewDates";
     }
 
-     */
-
-    @PostMapping("/updateDates")
+    @PostMapping("/avaliblerooms")
     public String updateBookingDates(@RequestParam("startDate") LocalDate startDate,
                                      @RequestParam("endDate") LocalDate endDate,
-                                     Model model) {
+                                     Model model, HttpSession session) {
+
+        Long customerId = (Long) session.getAttribute("customerId");
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
+
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
         model.addAttribute("availableRooms", availableRooms);
-        return "displayDates";
+        return "displayAvalibleRooms";
     }
     @RequestMapping("Bookings/add")
     public String addBookings(){
@@ -103,38 +101,34 @@ public class BookingController {
 
 
 
+    @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
+    public String extraBeds(@PathVariable Long id, Model model, HttpSession session) {
+        Long customerId = (Long) session.getAttribute("customerId");
+        LocalDate startDate = (LocalDate) session.getAttribute("startDate");
+        LocalDate endDate = (LocalDate) session.getAttribute("endDate");
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
+        Room room = roomService.getById(id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    @RequestMapping("Bookings")
-    public List<DetailedBookingDto> getAllBookingsDto(){
-        return bookingService.getAllBookings();
+        model.addAttribute("roomId", id);
+        model.addAttribute("roomType", room.getRoomType());
+        model.addAttribute("roomSize", room.getSize());
+        return "setExtraBeds";
     }
 
-    @PostMapping("Bookings/add")
-    public String addBookingDto(@RequestBody DetailedBookingDto bookingDto){
-       return bookingService.addBookingDto(bookingDto);
-    }
+    @PostMapping("/processExtraBeds")
+    public String processExtraBeds(@RequestParam("roomId") Long roomId,
+                               @RequestParam("extraBeds") int extraBeds,
+                               HttpSession session) {
+    Long customerId = (Long) session.getAttribute("customerId");
+    LocalDate startDate = (LocalDate) session.getAttribute("startDate");
+    LocalDate endDate = (LocalDate) session.getAttribute("endDate");
 
-    @PostMapping("Bookings/delete")
-    public List<DetailedBookingDto> deleteBookingDto(@RequestBody DetailedBookingDto bookingDto){
-        // TODO anropa BookingService.delete() som inte finns.
-        return new ArrayList<>();
-    }
-*/
+    return "redirect:/bookings/all";
+}
+
+
 
 
 }
