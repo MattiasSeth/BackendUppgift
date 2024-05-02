@@ -81,20 +81,23 @@ public class BookingController {
     public String addBookings(){
         return "addBooking";
     }
-    @RequestMapping(path="/addReceiver")
-    public String addBookingsReceiver(@RequestParam String customerName, @RequestParam Long roomId, @RequestParam int extraBeds,
-                                      @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model){
-        Booking booking = new Booking(customerService.getByName(customerName), roomService.roomDtoToRoom(roomService.getById(roomId)),
-                extraBeds, startDate, endDate);
-        bookingService.addBookingDto(bookingService.bookingToDetailedBookingDto(booking));
 
-        model.addAttribute("customerName", customerService.getByName(customerName));
-        model.addAttribute("roomId", roomService.roomDtoToRoom(roomService.getById(roomId)));
-        model.addAttribute("extraBeds", extraBeds);
+    @PostMapping("/addReceiver")
+    public String addBookingsReceiver(@RequestParam String customerName,
+                                      @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
+                                      HttpSession session){
+        Customer customer = new Customer(customerName);
+        customerService.saveCustomer(customer);
+        Long customerId = customer.getId();
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
+
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
-
-        return "redirect:/bookings/all";
+        List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
+        model.addAttribute("availableRooms", availableRooms);
+        return "displayAvalibleRooms";
     }
 
     @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
