@@ -98,4 +98,9 @@ public class BookingServiceImpl implements BookingService {
         return availableRooms;
     }
 
+    @Override
+    public void addNewBookingFromEdit(Booking booking) {
+        br.save(booking);
+    }
+
 }

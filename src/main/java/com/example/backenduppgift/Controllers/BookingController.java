@@ -83,19 +83,22 @@ public class BookingController {
         model.addAttribute("availableRooms", availableRooms);
         return "displayAvalibleRooms";
     }
-    @RequestMapping("Bookings/add")
+    @RequestMapping(path="/add")
     public String addBookings(){
         return "addBooking";
     }
-    @RequestMapping("Bookings/add")
+    @RequestMapping(path="/addReceiver")
     public String addBookingsReceiver(@RequestParam String customer, @RequestParam Long room, @RequestParam int extraBeds,
                                       @RequestParam LocalDate startDate,@RequestParam LocalDate endDate, Model model){
-        Booking booking = new Booking(customerService.getByName(customer), roomService.roomDtoToRoom(roomService.getById(room)), extraBeds, startDate, endDate);
+        Booking booking = new Booking(customerService.getByName(customer), roomService.roomDtoToRoom(roomService.getById(room)),
+                extraBeds, startDate, endDate);
+
         model.addAttribute("customer", customerService.getByName(customer));
         model.addAttribute("room", roomService.getById(room));
         model.addAttribute("extraBeds", extraBeds);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
+
         return "showAllOccupiedrooms";
     }
 
@@ -109,7 +112,7 @@ public class BookingController {
         session.setAttribute("customerId", customerId);
         session.setAttribute("startDate", startDate);
         session.setAttribute("endDate", endDate);
-        Room room = roomService.getById(id);
+        Room room = roomService.getByIdToRoom(id);
 
         model.addAttribute("roomId", id);
         model.addAttribute("roomType", room.getRoomType());
@@ -124,6 +127,12 @@ public class BookingController {
     Long customerId = (Long) session.getAttribute("customerId");
     LocalDate startDate = (LocalDate) session.getAttribute("startDate");
     LocalDate endDate = (LocalDate) session.getAttribute("endDate");
+
+    Customer customer = customerService.getById(customerId);
+    Room room = roomService.getByIdToRoom(roomId);
+
+    Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate);
+    bookingService.addNewBookingFromEdit(newBooking);
 
     return "redirect:/bookings/all";
 }

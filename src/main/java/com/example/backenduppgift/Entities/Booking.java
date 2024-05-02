@@ -30,8 +30,6 @@ public class Booking {
     @ManyToOne
     private Room room;
 
-    @Min(value = 0)
-    @Max(value = 1)
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;

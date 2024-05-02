@@ -21,8 +21,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room getById(Long id) {
+    public Room getByIdToRoom(Long id) {
         return roomRepository.findById(id).get();
+    }
+
+    @Override
+    public RoomDto getById(Long id) {
+        return roomToRoomDto(roomRepository.findById(id).get());
     }
 
     @Override
