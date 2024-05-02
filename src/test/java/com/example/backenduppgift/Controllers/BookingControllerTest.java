@@ -19,25 +19,4 @@ import static org.mockito.Mockito.when;
 @AutoConfigureMockMvc
 class BookingControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
-
-    @MockBean
-    private BookingRepository mockRepo;
-
-    @BeforeEach
-    public void init(){
-        // Add values to b1,b2,b3,b4
-        Booking b1 = new Booking();
-        Booking b2 = new Booking();
-        Booking b3 = new Booking();
-        Booking b4 = new Booking();
-
-        when(mockRepo.findById(1L)).thenReturn(Optional.of(b1));
-        when(mockRepo.findById(2L)).thenReturn(Optional.of(b2));
-        when(mockRepo.findById(3L)).thenReturn(Optional.of(b3));
-        when(mockRepo.findById(4L)).thenReturn(Optional.of(b4));
-        when(mockRepo.findAll()).thenReturn(Arrays.asList(b1,b2,b3,b4));
-    }
-
 }

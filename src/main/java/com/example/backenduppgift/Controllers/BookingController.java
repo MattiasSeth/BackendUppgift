@@ -25,16 +25,12 @@ public class BookingController {
     private final BookingService bookingService;
     private final CustomerService customerService;
     private final RoomService roomService;
-    private Customer customer;
-    private Room room;
-
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
         List<DetailedBookingDto> bookings = bookingService.getAllBookings();
         model.addAttribute("allBookings", bookings);
         model.addAttribute("roomTitle", "All occupied rooms");
-        //model.addAttribute("addCustomer", "Add Customers");
         return "showAllOccupiedrooms";
     }
 
@@ -100,8 +96,6 @@ public class BookingController {
 
         return "redirect:/bookings/all";
     }
-
-
 
     @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
     public String extraBeds(@PathVariable Long id, Model model, HttpSession session) {

@@ -52,7 +52,7 @@ public class CustomerController {
          return "redirect:/customer/all";
      }
 
-    @RequestMapping(path = "/deleteById/{id}")   // Funkar! Men kanske ska fixa else delen om man har tid!
+    @RequestMapping(path = "/deleteById/{id}")
     public String deleteCap(@PathVariable Long id, Model model) {
         boolean bookings = bookingService.checkBookingsByCustomerId(id);
         if (!bookings)

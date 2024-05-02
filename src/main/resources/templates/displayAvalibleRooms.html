@@ -13,7 +13,7 @@
 <table>
   <thead>
   <tr>
-    <th>Room ID</th>
+    <th>Room Number</th>
     <th>Room Type</th>
     <th>Possible extra beds</th>
   </tr>
@@ -21,7 +21,7 @@
   <tbody>
 
   <tr th:each="room : ${availableRooms}">
-    <td th:text="${room.id}"></td>
+    <td th:text="${1000+room.id}"></td>
     <td th:text="${room.roomType}"></td>
     <td th:text="${room.size}"></td>
     <td><a th:href="@{/bookings/avaliblerooms/extrabeds/{id}(id=${room.id})}">Choose room</a></td>
