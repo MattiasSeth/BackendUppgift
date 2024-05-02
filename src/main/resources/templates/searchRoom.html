@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#startDate").datepicker({
+                dateFormat: 'yy-mm-dd',
+                onSelect: function(dateText) {
+                    var endDate = $("#endDate");
+                    endDate.datepicker("option", "minDate", dateText);
+                }
+            });
+
+            $("#endDate").datepicker({
+                dateFormat: 'yy-mm-dd',
+                onSelect: function(dateText) {
+                    var startDate = $("#startDate");
+                    startDate.datepicker("option", "maxDate", dateText);
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+<form action="/result" method="post">
+    <label for="startDate">Startdatum:</label>
+    <input type="text" id="startDate" name="startDate" />
+    <br>
+    <label for="endDate">Slutdatum:</label>
+    <input type="text" id="endDate" name="endDate" />
+    <br>
+    <input type="submit" value="Check available rooms" />
+</form>
+
+</body>
+</html>

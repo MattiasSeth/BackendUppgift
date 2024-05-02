@@ -1,7 +1,9 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Services.BookingService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
@@ -10,6 +12,7 @@ import com.example.backenduppgift.DTO.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +79,8 @@ public class CustomerController {
         model.addAttribute("addCustomer", "Add Customers");
         return "showAllCustomers";
     }
+
+
+
 
 }

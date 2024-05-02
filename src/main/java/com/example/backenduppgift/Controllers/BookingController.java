@@ -136,7 +136,10 @@ public class BookingController {
     return "redirect:/bookings/all";
 }
 
-
+    @GetMapping("searchRoom")
+    public String searchRooms(){
+        return "searchRoom";
+    }
 
 
 }
