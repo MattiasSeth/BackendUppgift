@@ -92,14 +92,15 @@ public class BookingController {
                                       @RequestParam LocalDate startDate,@RequestParam LocalDate endDate, Model model){
         Booking booking = new Booking(customerService.getByName(customer), roomService.roomDtoToRoom(roomService.getById(room)),
                 extraBeds, startDate, endDate);
+        bookingService.addBookingDto(bookingService.bookingToDetailedBookingDto(booking));
 
         model.addAttribute("customer", customerService.getByName(customer));
-        model.addAttribute("room", roomService.getById(room));
+        model.addAttribute("room", roomService.roomDtoToRoom(roomService.getById(room)));
         model.addAttribute("extraBeds", extraBeds);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
 
-        return "showAllOccupiedrooms";
+        return "redirect:/bookings/all";
     }
 
 
