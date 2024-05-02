@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
@@ -86,9 +87,16 @@ public class BookingController {
     public String addBookingsReceiver(@RequestParam String customerName,
                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
                                       HttpSession session){
-        Customer customer = new Customer(customerName);
-        customerService.saveCustomer(customer);
-        Long customerId = customer.getId();
+        Customer existingCustomer = customerService.getByName(customerName);
+        Long customerId;
+
+        if (existingCustomer != null) {
+            customerId = existingCustomer.getId();
+        }else {
+            Customer customer = new Customer(customerName);
+            customerService.saveCustomer(customer);
+            customerId = customer.getId();
+        }
         session.setAttribute("customerId", customerId);
         session.setAttribute("startDate", startDate);
         session.setAttribute("endDate", endDate);
