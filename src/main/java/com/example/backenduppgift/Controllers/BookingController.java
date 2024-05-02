@@ -8,7 +8,6 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
-import com.example.backenduppgift.Services.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -88,14 +86,14 @@ public class BookingController {
         return "addBooking";
     }
     @RequestMapping(path="/addReceiver")
-    public String addBookingsReceiver(@RequestParam String customer, @RequestParam Long room, @RequestParam int extraBeds,
-                                      @RequestParam LocalDate startDate,@RequestParam LocalDate endDate, Model model){
-        Booking booking = new Booking(customerService.getByName(customer), roomService.roomDtoToRoom(roomService.getById(room)),
+    public String addBookingsReceiver(@RequestParam String customerName, @RequestParam Long roomId, @RequestParam int extraBeds,
+                                      @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model){
+        Booking booking = new Booking(customerService.getByName(customerName), roomService.roomDtoToRoom(roomService.getById(roomId)),
                 extraBeds, startDate, endDate);
         bookingService.addBookingDto(bookingService.bookingToDetailedBookingDto(booking));
 
-        model.addAttribute("customer", customerService.getByName(customer));
-        model.addAttribute("room", roomService.roomDtoToRoom(roomService.getById(room)));
+        model.addAttribute("customerName", customerService.getByName(customerName));
+        model.addAttribute("roomId", roomService.roomDtoToRoom(roomService.getById(roomId)));
         model.addAttribute("extraBeds", extraBeds);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);

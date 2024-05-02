@@ -5,17 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form action="addBookingsReceiver" method="post">
-    <label for="customer">Customers name</label><br>
-    <input type="text" id="customer" name="customer" value=""><br>
-    <label for="room">Room number/id</label><br>
-    <input type="number" id="room" name="room" value=""><br>
+<form action="/bookings/addReceiver" method="POST">
+    <label for="customerName">Customers name</label><br>
+    <input type="text" id="customerName" name="customerName" value=""><br>
+    <label for="roomId">Room number/id</label><br>
+    <input type="number" id="roomId" name="roomId" value=""><br>
     <label for="extraBeds">Number of extra beds</label><br>
     <input type="number" id="extraBeds" name="extraBeds" value=""><br>
     <label for="startDate">The bookings start date</label><br>
-    <input type="datetime-local" id="startDate" name="startDate" value=""><br>
+    <input type="date" id="startDate" name="startDate" value=""><br>
     <label for="endDate">The bookings end date</label><br>
-    <input type="datetime-local" id="endDate" name="endDate" value=""><br><br>
+    <input type="date" id="endDate" name="endDate" value=""><br><br>
     <input type="submit" value="Submit">
 </form>
 
