@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingService {
-    public BookingDto bookingToBookingDto(Booking b);
 
     public DetailedBookingDto bookingToDetailedBookingDto(Booking b);
 
@@ -25,7 +24,6 @@ public interface BookingService {
     public String addBookingDto(DetailedBookingDto bookingDto);
 
     public boolean checkBookingsByCustomerId(Long id);
-    public DetailedBookingDto bookingToDetailedBookingDto(Booking booking, Customer customer, Room room);
 
     public void deleteBookingById(Long id);
     public Booking getById(Long id);

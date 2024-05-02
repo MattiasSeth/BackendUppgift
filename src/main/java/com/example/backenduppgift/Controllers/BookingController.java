@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
@@ -25,16 +26,12 @@ public class BookingController {
     private final BookingService bookingService;
     private final CustomerService customerService;
     private final RoomService roomService;
-    private Customer customer;
-    private Room room;
-
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
         List<DetailedBookingDto> bookings = bookingService.getAllBookings();
         model.addAttribute("allBookings", bookings);
         model.addAttribute("roomTitle", "All occupied rooms");
-        //model.addAttribute("addCustomer", "Add Customers");
         return "showAllOccupiedrooms";
     }
 
@@ -85,23 +82,31 @@ public class BookingController {
     public String addBookings(){
         return "addBooking";
     }
-    @RequestMapping(path="/addReceiver")
-    public String addBookingsReceiver(@RequestParam String customerName, @RequestParam Long roomId, @RequestParam int extraBeds,
-                                      @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model){
-        Booking booking = new Booking(customerService.getByName(customerName), roomService.roomDtoToRoom(roomService.getById(roomId)),
-                extraBeds, startDate, endDate);
-        bookingService.addBookingDto(bookingService.bookingToDetailedBookingDto(booking));
 
-        model.addAttribute("customerName", customerService.getByName(customerName));
-        model.addAttribute("roomId", roomService.roomDtoToRoom(roomService.getById(roomId)));
-        model.addAttribute("extraBeds", extraBeds);
+    @PostMapping("/addReceiver")
+    public String addBookingsReceiver(@RequestParam String customerName,
+                                      @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
+                                      HttpSession session){
+        Customer existingCustomer = customerService.getByName(customerName);
+        Long customerId;
+
+        if (existingCustomer != null) {
+            customerId = existingCustomer.getId();
+        }else {
+            Customer customer = new Customer(customerName);
+            customerService.saveCustomer(customer);
+            customerId = customer.getId();
+        }
+        session.setAttribute("customerId", customerId);
+        session.setAttribute("startDate", startDate);
+        session.setAttribute("endDate", endDate);
+
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
-
-        return "redirect:/bookings/all";
+        List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
+        model.addAttribute("availableRooms", availableRooms);
+        return "displayAvalibleRooms";
     }
-
-
 
     @RequestMapping(path = "avaliblerooms/extrabeds/{id}")
     public String extraBeds(@PathVariable Long id, Model model, HttpSession session) {

@@ -1,43 +1,74 @@
 package com.example.backenduppgift.Controllers;
 
-import com.example.backenduppgift.Entities.Booking;
-import com.example.backenduppgift.Repositories.BookingRepository;
+import com.example.backenduppgift.DTO.CustomerDto;
+import com.example.backenduppgift.DTO.DetailedBookingDto;
+import com.example.backenduppgift.DTO.RoomDto;
+import com.example.backenduppgift.Services.BookingService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Optional;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class BookingControllerTest {
+public class BookingControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @MockBean
-    private BookingRepository mockRepo;
+    private BookingService bookingService;
 
     @BeforeEach
-    public void init(){
-        // Add values to b1,b2,b3,b4
-        Booking b1 = new Booking();
-        Booking b2 = new Booking();
-        Booking b3 = new Booking();
-        Booking b4 = new Booking();
+    public void setUp() {
+        CustomerDto customer1 = new CustomerDto(1L, "Gustav");
+        RoomDto room1 = new RoomDto(1L, "Single", 1);
+        DetailedBookingDto booking1 = new DetailedBookingDto(1L, customer1, room1, 0, LocalDate.now(), LocalDate.now().plusDays(1));
 
-        when(mockRepo.findById(1L)).thenReturn(Optional.of(b1));
-        when(mockRepo.findById(2L)).thenReturn(Optional.of(b2));
-        when(mockRepo.findById(3L)).thenReturn(Optional.of(b3));
-        when(mockRepo.findById(4L)).thenReturn(Optional.of(b4));
-        when(mockRepo.findAll()).thenReturn(Arrays.asList(b1,b2,b3,b4));
+        CustomerDto customer2 = new CustomerDto(2L, "Seth");
+        RoomDto room2 = new RoomDto(2L, "Double", 2);
+        DetailedBookingDto booking2 = new DetailedBookingDto(2L, customer2, room2, 1, LocalDate.now(), LocalDate.now().plusDays(2));
+
+        List<DetailedBookingDto> bookings = Arrays.asList(booking1, booking2);
+
+        when(bookingService.getAllBookings()).thenReturn(bookings);
     }
 
+
+    @Test
+    public void testGetAllBookings() throws Exception {
+        mockMvc.perform(get("/bookings/all"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("allBookings"))
+                .andExpect(view().name("showAllOccupiedrooms"));
+        verify(bookingService, times(1)).getAllBookings();
+    }
+
+    @Test
+    public void testDeleteBooking() throws Exception {
+        mockMvc.perform(get("/bookings/deleteById/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/bookings/all"));
+        verify(bookingService, times(1)).deleteBookingById(1L);
+    }
+
+    @Test
+    public void testAddBooking() throws Exception {
+        mockMvc.perform(post("/bookings/addReceiver")
+                        .param("customerName", "Gustav")
+                        .param("startDate", "2024-05-10")
+                        .param("endDate", "2024-05-11"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("displayAvalibleRooms"));
+    }
 }

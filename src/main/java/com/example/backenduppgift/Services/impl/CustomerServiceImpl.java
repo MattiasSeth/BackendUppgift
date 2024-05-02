@@ -51,5 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
         return cr.findByName(name);
     }
 
+    @Override
+    public void saveCustomer(Customer customer) {
+        cr.save(customer);
+    }
+
 
 }

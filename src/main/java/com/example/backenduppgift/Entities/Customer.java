@@ -25,7 +25,6 @@ public class Customer {
 
     public Customer (@NotNull String name){
         this.name = name;
-        //
     }
 
 }
