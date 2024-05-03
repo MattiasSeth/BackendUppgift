@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Lediga rum</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Rums nummer</th>
+        <th>Rumstyp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${availableRooms}">
+        <td th:text="${room.id}">Room ID</td>
+        <td th:text="${room.roomType}">Room Name</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

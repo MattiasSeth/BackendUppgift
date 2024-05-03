@@ -11,6 +11,7 @@ import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -140,11 +141,16 @@ public class BookingController {
 
     return "redirect:/bookings/all";
 }
-
-    @GetMapping("searchRoom")
+    @RequestMapping("/searchRoom")
     public String searchRooms(){
         return "searchRoom";
     }
 
+    @GetMapping("/result")
+    public String searchRooms(@RequestParam @DateTimeFormat(pattern = "MM/dd/yyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern = "MM/dd/yyyy") LocalDate endDate, Model model){
+        List<RoomDto> availableRooms =  bookingService.findAvailableRooms(startDate, endDate);
+        model.addAttribute("availableRooms", availableRooms);
+        return "result";
+    }
 
 }

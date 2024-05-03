@@ -6,6 +6,20 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        /* Centering the form */
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding-bottom: 20px;
+        }
+
+        form {
+            width: 300px;
+        }
+    </style>
     <script>
         $(function() {
             $("#startDate").datepicker({
@@ -25,18 +39,18 @@
             });
         });
     </script>
-
 </head>
 <body>
-<form action="/result" method="post">
-    <label for="startDate">Startdatum:</label>
-    <input type="text" id="startDate" name="startDate" />
-    <br>
-    <label for="endDate">Slutdatum:</label>
-    <input type="text" id="endDate" name="endDate" />
-    <br>
-    <input type="submit" value="Check available rooms" />
-</form>
-
+<div class="centered-form">
+    <form action="/bookings/result" method="GET">
+        <label for="startDate">Startdatum:</label>
+        <input type="text" id="startDate" name="startDate" />
+        <br><br>
+        <label for="endDate">Slutdatum:</label>
+        <input type="text" id="endDate" name="endDate" />
+        <br><br>
+        <input type="submit" value="Kontrollera lediga rum" />
+    </form>
+</div>
 </body>
 </html>
