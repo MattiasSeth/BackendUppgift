@@ -9,4 +9,6 @@ public interface ShipperService {
 
     public void addShipper(Shipper shipper);
 
+    public boolean existsShipper (Shipper shipper);
+
 }

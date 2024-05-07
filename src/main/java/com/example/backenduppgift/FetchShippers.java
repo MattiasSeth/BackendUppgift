@@ -29,7 +29,9 @@ public class FetchShippers implements CommandLineRunner {
 
         for (int i=0; i<shippersList.size(); i++){
             Shipper tempShipper = shipperService.ShipperDtoToShipper(shippersList.get(i));
-            shipperService.addShipper(tempShipper);
+            if (!shipperService.existsShipper(tempShipper)) {
+                shipperService.addShipper(tempShipper);
+            }
         }
     }
 }
