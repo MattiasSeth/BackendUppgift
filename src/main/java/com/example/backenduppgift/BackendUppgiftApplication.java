@@ -6,15 +6,20 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Repositories.CustomerRepository;
 import com.example.backenduppgift.Repositories.RoomRepository;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
+
 //
 @SpringBootApplication
-public class BackendUppgiftApplication {
+public class BackendUppgiftApplication implements CommandLineRunner{
 
     public static void main(String[] args) {
         SpringApplication.run(BackendUppgiftApplication.class, args);
@@ -68,5 +73,34 @@ public class BackendUppgiftApplication {
             bookingRepository.save(new Booking(c1,r1,0,startDate,endDate));
             bookingRepository.save(new Booking(c2,r2,0,startDate,endDate));
         };
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        try {
+            JacksonXmlModule module = new JacksonXmlModule();
+            module.setDefaultUseWrapper(false);
+            XmlMapper xmlMapper = new XmlMapper(module);
+            System.out.println("Before reading XML data");
+            Catalog catalog = xmlMapper.readValue(new URL("https://axmjqhyyjpat.objectstorage.eu-amsterdam-1.oci.customer-oci.com/n/axmjqhyyjpat/b/aspcodeprod/o/books.xml"),
+                    Catalog.class);
+
+            System.out.println("After reading XML data");
+
+            List<Book> books = catalog.book;
+            for (Book book : books) {
+                System.out.println("Author: " + book.author);
+                System.out.println("Title: " + book.title);
+                System.out.println("Genre: " + book.category);
+                System.out.println("Price: " + book.price);
+                System.out.println("Publish Date: " + book.publish_date);
+                System.out.println("Description: " + book.description);
+                System.out.println("ID: " + book.id);
+                System.out.println("Text: " + book.text);
+                System.out.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
