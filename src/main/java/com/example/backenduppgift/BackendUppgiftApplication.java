@@ -39,6 +39,10 @@ public class BackendUppgiftApplication {
             SpringApplication application = new SpringApplication(AddData.class);
             application.setWebApplicationType(WebApplicationType.NONE);
             application.run(args);
+        }else if (Objects.equals(args[0], "fetchblacklist")){
+            SpringApplication application = new SpringApplication(FetchBlacklist.class);
+            application.setWebApplicationType(WebApplicationType.NONE);
+            application.run(args);
         }
     }
 }
