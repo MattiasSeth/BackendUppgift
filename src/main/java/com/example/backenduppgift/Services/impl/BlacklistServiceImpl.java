@@ -7,6 +7,7 @@ import com.example.backenduppgift.Services.BlacklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,17 @@ public class BlacklistServiceImpl implements BlacklistService {
 
         Optional<Blacklist> blacklistOptional = Optional.ofNullable(blacklistRepository.findByExternalId(blacklistExternalId));
         return blacklistOptional.isPresent();
+    }
+
+    @Override
+    public boolean isEpostInBlacklist(String epost) {
+        List<Blacklist> blacklistRepositoryAll = blacklistRepository.findAll();
+        for (Blacklist blacklist : blacklistRepositoryAll) {
+            if (blacklist.getEmail().equals(epost)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

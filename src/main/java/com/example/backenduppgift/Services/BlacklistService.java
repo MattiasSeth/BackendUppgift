@@ -10,4 +10,6 @@ public interface BlacklistService {
     public void addBlacklistedCustomer(Blacklist blacklist);
 
     public boolean existsBlacklist (Blacklist blacklist);
+
+    public boolean isEpostInBlacklist(String epost);
 }

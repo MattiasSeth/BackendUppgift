@@ -6,6 +6,7 @@ import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
+import com.example.backenduppgift.Services.BlacklistService;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
@@ -27,6 +28,7 @@ public class BookingController {
     private final BookingService bookingService;
     private final CustomerService customerService;
     private final RoomService roomService;
+    private final BlacklistService blacklistService;
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -88,6 +90,16 @@ public class BookingController {
     public String addBookingsReceiver(@RequestParam String customerName,
                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
                                       HttpSession session){
+
+        // hårdkodar epost variabel tills det att vi får det från GUI
+        String customerEpost = "trevlig@aaa.com"; // inte black-listad!
+        //String customerEpost = "stefan6@aaa.com"; // black-listad!
+
+        // kontrollerar om användaren är blacklistan eller ifall vi ska fortsätta med beställningen
+        if (blacklistService.isEpostInBlacklist(customerEpost)) {
+            return "blacklist";
+        }
+
         Customer existingCustomer = customerService.getByName(customerName);
         Long customerId;
 
