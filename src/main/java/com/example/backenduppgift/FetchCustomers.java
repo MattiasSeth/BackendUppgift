@@ -3,13 +3,9 @@ package com.example.backenduppgift;
 import com.example.backenduppgift.DTO.CustomerListXMLDto;
 import com.example.backenduppgift.DTO.CustomerXMLDto;
 import com.example.backenduppgift.Entities.CustomerXML;
-import com.example.backenduppgift.Entities.Shipper;
 import com.example.backenduppgift.Services.CustomerXMLService;
-import com.example.backenduppgift.Services.ShipperService;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,7 +35,7 @@ public class FetchCustomers implements CommandLineRunner {
             List<CustomerXMLDto> customerList = customerListXMLDto.getCustomerXMLDtoList();
 
             for (int i=0; i<customerList.size(); i++){
-                CustomerXML tempCustomerXML = customerXMLService.CustomerXMLDtoToCustomer(customerList.get(i));
+                CustomerXML tempCustomerXML = customerXMLService.customerXMLDtoToCustomer(customerList.get(i));
                 if (!customerXMLService.existsCustomerXML(tempCustomerXML)) {
                     customerXMLService.addCustomer(tempCustomerXML);
                 }

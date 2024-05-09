@@ -5,7 +5,7 @@ import com.example.backenduppgift.Entities.Shipper;
 
 public interface ShipperService {
 
-    public Shipper ShipperDtoToShipper(ShipperDto shipperDto);
+    public Shipper shipperDtoToShipper(ShipperDto shipperDto);
 
     public void addShipper(Shipper shipper);
 

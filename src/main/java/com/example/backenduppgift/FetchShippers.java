@@ -17,7 +17,6 @@ import java.util.List;
 public class FetchShippers implements CommandLineRunner {
 
     private final ShipperService shipperService;
-
     @Override
     public void run(String... args) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -28,7 +27,7 @@ public class FetchShippers implements CommandLineRunner {
                 collectionType);
 
         for (int i=0; i<shippersList.size(); i++){
-            Shipper tempShipper = shipperService.ShipperDtoToShipper(shippersList.get(i));
+            Shipper tempShipper = shipperService.shipperDtoToShipper(shippersList.get(i));
             if (!shipperService.existsShipper(tempShipper)) {
                 shipperService.addShipper(tempShipper);
             }

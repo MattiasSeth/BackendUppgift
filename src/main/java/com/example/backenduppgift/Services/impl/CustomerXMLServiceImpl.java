@@ -18,7 +18,7 @@ public class CustomerXMLServiceImpl implements CustomerXMLService {
 
     private final CustomerXMLRepository customerXMLRepository;
     @Override
-    public CustomerXML CustomerXMLDtoToCustomer(CustomerXMLDto customerXMLDto) {
+    public CustomerXML customerXMLDtoToCustomer(CustomerXMLDto customerXMLDto) {
         return CustomerXML.builder()
                 .externalId(customerXMLDto.getExternalId())
                 .companyName(customerXMLDto.getCompanyName())

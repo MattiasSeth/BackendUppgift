@@ -32,10 +32,16 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomDto roomToRoomDto(Room room) {
-        return RoomDto.builder().id(room.getId()).size(room.getSize()).roomType(room.getRoomType()).build();
+        return RoomDto.builder().id(room.getId())
+                .size(room.getSize())
+                .roomType(room.getRoomType())
+                .build();
     }
     @Override
     public Room roomDtoToRoom(RoomDto roomDto){
-        return Room.builder().id(roomDto.getId()).size(roomDto.getSize()).roomType(roomDto.getRoomType()).build();
+        return Room.builder().id(roomDto.getId())
+                .size(roomDto.getSize())
+                .roomType(roomDto.getRoomType())
+                .build();
     }
 }

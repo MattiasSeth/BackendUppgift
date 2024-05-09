@@ -16,7 +16,9 @@ public class CustomerServiceImpl implements CustomerService {
     final private CustomerRepository cr;
     @Override
     public CustomerDto customerToCustomerDto(Customer c) {
-        return CustomerDto.builder().id(c.getId()).name(c.getName()).build();
+        return CustomerDto.builder().id(c.getId())
+                .name(c.getName())
+                .build();
     }
 
     @Override
@@ -38,7 +40,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer customerDtoToCustomer(CustomerDto c) {
-        return Customer.builder().id(c.getId()).name(c.getName()).build();
+        return Customer.builder().id(c.getId())
+                .name(c.getName())
+                .build();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.backenduppgift.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +12,17 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class BlacklistDto {
-    public int id;
+
+    @JsonProperty("id")
+    public int externalId;
+
     public String email;
     public String name;
     public String group;
     public Date created;
     public boolean ok;
+
+    public boolean getOk() {
+        return ok;
+    }
 }

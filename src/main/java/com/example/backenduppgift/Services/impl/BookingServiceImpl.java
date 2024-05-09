@@ -29,16 +29,23 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public DetailedBookingDto bookingToDetailedBookingDto(Booking b) {
-        return DetailedBookingDto.builder().id(b.getId()).extraBeds(b.getExtraBeds()).startDate(b.getStartDate())
-                .endDate(b.getEndDate()).customer(new CustomerDto(b.getCustomer().getId(),b.getCustomer().getName()))
+        return DetailedBookingDto.builder().id(b.getId())
+                .extraBeds(b.getExtraBeds())
+                .startDate(b.getStartDate())
+                .endDate(b.getEndDate())
+                .customer(new CustomerDto(b.getCustomer().getId(),b.getCustomer().getName()))
                 .room(new RoomDto(b.getRoom().getId(), b.getRoom().getRoomType(),b.getRoom().getSize())).build();
     }
 
     @Override
     public Booking bookingToDetailedBookingDto(DetailedBookingDto bookingDto) {
-        return Booking.builder().id(bookingDto.getId()).extraBeds(bookingDto.getExtraBeds()).startDate(bookingDto.getStartDate())
-                .endDate(bookingDto.getEndDate()).customer(new Customer(bookingDto.getCustomer().getId(),bookingDto.getCustomer()
-                        .getName())).room(new Room(bookingDto.getRoom().getId(), bookingDto.getRoom().getRoomType()
+        return Booking.builder().id(bookingDto.getId())
+                .extraBeds(bookingDto.getExtraBeds())
+                .startDate(bookingDto.getStartDate())
+                .endDate(bookingDto.getEndDate())
+                .customer(new Customer(bookingDto.getCustomer().getId(),bookingDto.getCustomer()
+                        .getName()))
+                .room(new Room(bookingDto.getRoom().getId(), bookingDto.getRoom().getRoomType()
                         ,bookingDto.getRoom().getSize())).build();
     }
 
