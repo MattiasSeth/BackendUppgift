@@ -23,8 +23,12 @@ public class Customer {
     @NotNull
     private String name;
 
-    public Customer (@NotNull String name){
+    @NotNull
+    private String email;
+
+    public Customer (@NotNull String name, @NotNull String email){
         this.name = name;
+        this.email = email;
     }
 
 }

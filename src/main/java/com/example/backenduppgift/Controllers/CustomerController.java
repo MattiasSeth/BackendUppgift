@@ -39,12 +39,14 @@ public class CustomerController {
         return "addCustomer.html";
     }
     @PostMapping("/addDone")
-    public String addCustomerDone(@RequestParam String name, Model model){
+    public String addCustomerDone(@RequestParam String name, @RequestParam String email, Model model){
         CustomerDto customer = new CustomerDto();
         customer.setName(name);
+        customer.setEmail(email);
         customerService.addCustomer(customer);
 
         model.addAttribute("name", name);
+        model.addAttribute("email", email);
         return "redirect:/customer/all";
     }
 
