@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    final private CustomerRepository cr;
+
+    final private CustomerRepository customerRepository;
     @Override
     public CustomerDto customerToCustomerDto(Customer c) {
         return CustomerDto.builder().id(c.getId())
@@ -23,18 +24,18 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        return cr.findAll().stream().map(c->customerToCustomerDto(c)).toList();
+        return customerRepository.findAll().stream().map(c->customerToCustomerDto(c)).toList();
     }
 
     @Override
     @Transactional
     public void deleteCustomerById(Long id) {
-        cr.deleteById(id);
+        customerRepository.deleteById(id);
     }
 
     @Override
     public String addCustomer(CustomerDto c) {
-        cr.save(customerDtoToCustomer(c));
+        customerRepository.save(customerDtoToCustomer(c));
         return "Customer saved";
     }
 
@@ -47,20 +48,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getById(Long id) {
-        return cr.findById(id).get();
+        return customerRepository.findById(id).get();
     }
 
     @Override
     public Customer getByName(String name) {
-        return cr.findByName(name);
+        return customerRepository.findByName(name);
     }
 
     @Override
-    public Customer getByEmail(String email){return cr.findByEmail(email);}
+    public Customer getByEmail(String email){return customerRepository.findByEmail(email);}
 
     @Override
     public void saveCustomer(Customer customer) {
-        cr.save(customer);
+        customerRepository.save(customer);
     }
 
 

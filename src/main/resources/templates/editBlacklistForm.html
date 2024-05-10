@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blacklisted Customer</title>
+</head>
+<body>
+<h2 th:text="${customerTitle}"></h2>
+<form action="#" th:action="@{/blacklist/update}" th:object="${Blacklist}"  method="post" >
+    <input type="hidden" name="id" th:value="${id}"/>
+
+    <input type="text" id="name" th:field="*{name}"/><br><br>
+    <input type="text" id="email" th:field="*{email}"/><br><br>
+    <input type="text" id="customerGroup" th:field="*{customerGroup}"/><br><br>
+    <input type="checkbox" id="ok" th:checked="*{ok}"/><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
