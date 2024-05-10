@@ -91,10 +91,6 @@ public class BookingController {
                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
                                       HttpSession session){
 
-        // hårdkodar epost variabel tills det att vi får det från GUI
-        //String customerEpost = "trevlig@aaa.com"; // inte black-listad!
-        //String customerEpost = "stefan6@aaa.com"; // black-listad!
-
         // kontrollerar om användaren är blacklistan eller ifall vi ska fortsätta med beställningen
         if (blacklistService.isEpostInBlacklist(customerEmail)) {
             return "blacklist";
