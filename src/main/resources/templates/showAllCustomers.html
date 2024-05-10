@@ -11,6 +11,7 @@
         <tbody>
         <tr th:each="customer : ${allCustomers}">
             <td th:text="${customer.name}"></td>
+            <td th:text="${customer.email}"></td>
             <td><a th:href="@{/customer/deleteById/{id}(id=${customer.id})}">Delete</a></td>
             <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Change name</a></td>
         </tr>

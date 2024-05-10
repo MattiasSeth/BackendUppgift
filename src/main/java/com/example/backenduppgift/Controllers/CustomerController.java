@@ -75,7 +75,7 @@ public class CustomerController {
 
     @PostMapping("/update")
     public String updateCustomerName(Model model, CustomerDto customerDto){
-        customerService.addCustomer(customerDto);
+        customerService.updateCustomer(customerDto);
         List<CustomerDto> customers = customerService.getAllCustomers();
         model.addAttribute("allCustomers", customers);
         model.addAttribute("customerTitle", "All Customers");

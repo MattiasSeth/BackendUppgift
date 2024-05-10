@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Services;
 
+import com.example.backenduppgift.DTO.BlacklistDto;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.DTO.CustomerDto;
 
@@ -24,4 +25,5 @@ public interface CustomerService {
 
     public Customer getByEmail(String email);
 
+    public void updateCustomer(CustomerDto customerDto);
 }

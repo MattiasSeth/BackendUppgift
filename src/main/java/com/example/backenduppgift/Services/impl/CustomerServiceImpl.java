@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Services.impl;
 
+import com.example.backenduppgift.Entities.Blacklist;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Repositories.CustomerRepository;
@@ -8,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,6 +60,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getByEmail(String email){return customerRepository.findByEmail(email);}
+
+    @Override
+    public void updateCustomer(CustomerDto customerDto) {
+        Customer existingCustomer = customerRepository.findById(customerDto.getId()).get();
+        existingCustomer.setEmail(customerDto.getEmail());
+        existingCustomer.setName(customerDto.getName());
+
+        customerRepository.save(existingCustomer);
+    }
 
     @Override
     public void saveCustomer(Customer customer) {

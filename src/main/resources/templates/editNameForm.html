@@ -8,7 +8,8 @@
 <h2 th:text="${customerTitle}"></h2>
 <form action="#" th:action="@{/customer/update}" th:object="${Customer}"  method="post" >
     <label for="name">Name:</label><br>
-    <input type="text" id="name" th:field="*{name}"><br>
+    <input type="text" id="name" th:field="*{name}"><br><br>
+    <input type="text" id="email" th:field="*{email}"><br>
     <input type=hidden id="id" th:field="*{id}"><br>
     <input type="submit" value="Submit">
 </form>
