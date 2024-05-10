@@ -20,4 +20,6 @@ public interface BlacklistService {
     public List<BlacklistDto> getAllBlacklistedCustomers();
 
     public BlacklistDto blacklistToBlacklistDto(Blacklist blacklist);
+
+    public String addCustomerToBlacklist (BlacklistDto blacklistDto);
 }

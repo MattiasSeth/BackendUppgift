@@ -8,12 +8,22 @@
 <h2 th:text="${customerTitle}"></h2>
 <div class="allCustomers" th:unless="${#lists.isEmpty(allCustomers)}">
     <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Created</th>
+            <th>OK</th>
+            <th>Customer Group</th>
+        </tr>
+        </thead>
         <tbody>
         <tr th:each="blacklist : ${allCustomers}">
             <td th:text="${blacklist.name}"></td>
             <td th:text="${blacklist.email}"></td>
             <td th:text="${blacklist.created}"></td>
             <td th:text="${blacklist.ok}"></td>
+            <td th:text="${blacklist.customerGroup}"></td>
             <!--
             <td><a th:href="@{/customer/deleteById/{id}(id=${customer.id})}">Delete</a></td>
             <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Change name</a></td>
@@ -23,15 +33,18 @@
     </table>
 </div>
 <p></p>
-<!--
+
 <h2 th:text="${addCustomer}"></h2>
-<form action="#" th:action="@{/customer/addDone}" method="post" >
+<form action="/blacklist/addDone" method="post">
     <label for="name">Name:</label><br>
     <input type="text" name="name" id="name" value=""><br><br>
-    <label for="email">Email</label><br>
+    <label for="email">Email:</label><br>
     <input type="text" name="email" id="email" value=""><br><br>
-    <input type="submit" value="Submit">
+    <label for="customerGroup">Customer Group:</label><br>
+    <input type="text" name="customerGroup" id="customerGroup" value=""><br><br>
+    <label for="ok">OK:</label><br>
+    <input type="checkbox" name="ok" id="ok" value="true"><br><br>
+    <input type="submit" value="Add to Blacklist">
 </form>
--->
 </body>
 </html>

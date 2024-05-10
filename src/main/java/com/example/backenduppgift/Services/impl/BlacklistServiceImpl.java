@@ -69,4 +69,10 @@ public class BlacklistServiceImpl implements BlacklistService {
                 .customerGroup(blacklist.getCustomerGroup())
                 .build();
     }
+
+    @Override
+    public String addCustomerToBlacklist(BlacklistDto blacklistDto) {
+        blacklistRepository.save(blacklistDtoTOBlacklist(blacklistDto));
+        return "Customer saved";
+    }
 }
