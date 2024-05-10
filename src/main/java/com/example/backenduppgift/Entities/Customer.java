@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,11 +22,11 @@ public class Customer {
     @GeneratedValue
     private Long id;
 
-    @NotNull
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @NotNull
-    @Email
+    @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Invalid email-address, the email needs to be a real email address" )
     private String email;
 
     public Customer (@NotNull String name, @NotNull String email){

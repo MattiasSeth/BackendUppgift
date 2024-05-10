@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class Booking {
     @ManyToOne
     private Room room;
 
+    @NotEmpty(message = "Extra beds cant be empty")
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;
