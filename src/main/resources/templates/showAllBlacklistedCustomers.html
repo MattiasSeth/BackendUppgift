@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text="${customerTitle}"></h2>
+<div class="allCustomers" th:unless="${#lists.isEmpty(allCustomers)}">
+    <table>
+        <tbody>
+        <tr th:each="blacklist : ${allCustomers}">
+            <td th:text="${blacklist.name}"></td>
+            <td th:text="${blacklist.email}"></td>
+            <td th:text="${blacklist.created}"></td>
+            <td th:text="${blacklist.ok}"></td>
+            <!--
+            <td><a th:href="@{/customer/deleteById/{id}(id=${customer.id})}">Delete</a></td>
+            <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Change name</a></td>
+            -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<p></p>
+<!--
+<h2 th:text="${addCustomer}"></h2>
+<form action="#" th:action="@{/customer/addDone}" method="post" >
+    <label for="name">Name:</label><br>
+    <input type="text" name="name" id="name" value=""><br><br>
+    <label for="email">Email</label><br>
+    <input type="text" name="email" id="email" value=""><br><br>
+    <input type="submit" value="Submit">
+</form>
+-->
+</body>
+</html>

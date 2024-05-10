@@ -17,11 +17,13 @@ public class BlacklistServiceImpl implements BlacklistService {
     private final BlacklistRepository blacklistRepository;
     @Override
     public Blacklist blacklistDtoTOBlacklist(BlacklistDto blacklistDto) {
-        return Blacklist.builder().externalId(blacklistDto.externalId)
+        return Blacklist.builder()
+                .externalId(blacklistDto.getExternalId())
                 .email(blacklistDto.getEmail())
                 .name(blacklistDto.getName())
                 .created(blacklistDto.getCreated())
                 .ok(blacklistDto.getOk())
+                .customerGroup(blacklistDto.getCustomerGroup())
                 .build();
     }
 
@@ -50,4 +52,21 @@ public class BlacklistServiceImpl implements BlacklistService {
         return false;
     }
 
+    @Override
+    public List<BlacklistDto> getAllBlacklistedCustomers() {
+        return blacklistRepository.findAll().stream().map(blacklist->blacklistToBlacklistDto(blacklist)).toList();
+    }
+
+    @Override
+    public BlacklistDto blacklistToBlacklistDto(Blacklist blacklist) {
+        return BlacklistDto.builder()
+                .id(blacklist.getId())
+                .ok(blacklist.getOk())
+                .name(blacklist.getName())
+                .created(blacklist.getCreated())
+                .email(blacklist.getEmail())
+                .externalId(blacklist.getExternalId())
+                .customerGroup(blacklist.getCustomerGroup())
+                .build();
+    }
 }

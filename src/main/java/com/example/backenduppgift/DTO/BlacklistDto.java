@@ -1,5 +1,6 @@
 package com.example.backenduppgift.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,16 +14,23 @@ import java.util.Date;
 @Builder
 public class BlacklistDto {
 
+    @JsonIgnore
+    public long id;
+
     @JsonProperty("id")
     public int externalId;
 
     public String email;
     public String name;
-    public String group;
+
+    @JsonProperty("group")
+    public String customerGroup;
+
     public Date created;
     public boolean ok;
 
     public boolean getOk() {
         return ok;
     }
+
 }

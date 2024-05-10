@@ -24,8 +24,11 @@ public class Blacklist {
     private int externalId;  // json ID
     private String email;
     private String name;
-    //private String group;  // Removed because mySQL, can change name if we need variable later!
+    private String customerGroup;
     private Date created;
     private boolean ok;
 
+    public boolean getOk() {
+        return ok;
+    }
 }
