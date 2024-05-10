@@ -3,6 +3,7 @@ package com.example.backenduppgift.Entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ public class Customer {
     private String name;
 
     @NotNull
+    @Email
     private String email;
 
     public Customer (@NotNull String name, @NotNull String email){
