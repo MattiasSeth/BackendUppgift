@@ -87,16 +87,16 @@ public class BookingController {
     }
 
     @PostMapping("/addReceiver")
-    public String addBookingsReceiver(@RequestParam String customerName,
+    public String addBookingsReceiver(@RequestParam String customerName, @RequestParam String customerEmail,
                                       @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Model model,
                                       HttpSession session){
 
         // hårdkodar epost variabel tills det att vi får det från GUI
-        String customerEpost = "trevlig@aaa.com"; // inte black-listad!
+        //String customerEpost = "trevlig@aaa.com"; // inte black-listad!
         //String customerEpost = "stefan6@aaa.com"; // black-listad!
 
         // kontrollerar om användaren är blacklistan eller ifall vi ska fortsätta med beställningen
-        if (blacklistService.isEpostInBlacklist(customerEpost)) {
+        if (blacklistService.isEpostInBlacklist(customerEmail)) {
             return "blacklist";
         }
 
@@ -106,7 +106,7 @@ public class BookingController {
         if (existingCustomer != null) {
             customerId = existingCustomer.getId();
         }else {
-            Customer customer = new Customer(customerName);
+            Customer customer = new Customer(customerName,customerEmail);
             customerService.saveCustomer(customer);
             customerId = customer.getId();
         }

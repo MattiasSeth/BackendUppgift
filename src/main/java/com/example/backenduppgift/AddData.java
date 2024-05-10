@@ -27,11 +27,11 @@ public class AddData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Customers
-        Customer c1 = new Customer("Seth");
-        Customer c2 = new Customer("Gustav");
-        Customer c3 = new Customer("Edgar");
-        Customer c4 = new Customer("Hadi");
-        Customer c5 = new Customer("Nadia");
+        Customer c1 = new Customer("Seth","Seth@yh.nackademin.com");
+        Customer c2 = new Customer("Gustav","Gustav@yh.nackademin.com");
+        Customer c3 = new Customer("Edgar", "Edgar.@yh.nackademin.com");
+        Customer c4 = new Customer("Hadi", "Hadi@yh.nackademin.com");
+        Customer c5 = new Customer("Nadia", "Nadia@yh.nackademin.com");
         customerRepository.save(c1);
         customerRepository.save(c2);
         customerRepository.save(c3);

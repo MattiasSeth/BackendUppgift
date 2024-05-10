@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto customerToCustomerDto(Customer c) {
         return CustomerDto.builder().id(c.getId())
-                .name(c.getName())
+                .name(c.getName()).email(c.getEmail())
                 .build();
     }
 
@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer customerDtoToCustomer(CustomerDto c) {
         return Customer.builder().id(c.getId())
-                .name(c.getName())
+                .name(c.getName()).email(c.getEmail())
                 .build();
     }
 
@@ -54,6 +54,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getByName(String name) {
         return cr.findByName(name);
     }
+
+    @Override
+    public Customer getByEmail(String email){return cr.findByEmail(email);}
 
     @Override
     public void saveCustomer(Customer customer) {

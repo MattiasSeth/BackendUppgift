@@ -21,4 +21,7 @@ public interface CustomerService {
     public Customer getByName(String name);
 
     public void saveCustomer(Customer customer);
+
+    public Customer getByEmail(String email);
+
 }
