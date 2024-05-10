@@ -83,8 +83,7 @@ public class BlacklistController {
 
     @PostMapping("/update")
     public String updateCustomerName(Model model, BlacklistDto blacklistDto){
-        blacklistDto.setCreated(new Date());
-        blacklistService.addCustomerToBlacklist(blacklistDto);
+        blacklistService.updateBlacklistedCustomer(blacklistDto);
 
         List<BlacklistDto> customers = blacklistService.getAllBlacklistedCustomers();
         model.addAttribute("allCustomers", customers);

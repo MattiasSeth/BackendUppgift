@@ -7,8 +7,10 @@ import com.example.backenduppgift.Repositories.BlacklistRepository;
 import com.example.backenduppgift.Services.BlacklistService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,5 +89,17 @@ public class BlacklistServiceImpl implements BlacklistService {
     @Override
     public Blacklist getById(Long id) {
         return blacklistRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateBlacklistedCustomer(BlacklistDto blacklistDto) {
+        Blacklist existingBlacklist = blacklistRepository.findById(blacklistDto.getId()).get();
+        existingBlacklist.setName(blacklistDto.getName());
+        existingBlacklist.setEmail(blacklistDto.getEmail());
+        existingBlacklist.setCustomerGroup(blacklistDto.getCustomerGroup());
+        existingBlacklist.setOk(blacklistDto.getOk());
+        existingBlacklist.setCreated(new Date());
+
+        blacklistRepository.save(existingBlacklist);
     }
 }

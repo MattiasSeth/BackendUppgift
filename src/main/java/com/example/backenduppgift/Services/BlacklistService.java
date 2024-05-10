@@ -26,4 +26,6 @@ public interface BlacklistService {
     public void deleteCustomerById(Long id);
 
     public Blacklist getById(Long id);
+
+    public void updateBlacklistedCustomer(BlacklistDto blacklistDto);
 }
