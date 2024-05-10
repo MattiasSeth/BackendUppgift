@@ -2,10 +2,13 @@ package com.example.backenduppgift.Controllers;
 
 import com.example.backenduppgift.DTO.BlacklistDto;
 import com.example.backenduppgift.DTO.CustomerDto;
+import com.example.backenduppgift.Entities.Blacklist;
+import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Services.BlacklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +56,41 @@ public class BlacklistController {
         model.addAttribute("customerGroup", customerGroup);
         model.addAttribute("ok", ok);
         return "redirect:/blacklist/all";
+    }
+
+
+
+    @RequestMapping("/delete")
+    public String getAllWithDelete (Model model) {
+        List<BlacklistDto> customers = blacklistService.getAllBlacklistedCustomers();
+        model.addAttribute("allCustomers", customers);
+        model.addAttribute("customerTitle", "All Blacklisted customers");
+        return "redirect:/blacklist/all";
+    }
+
+    @RequestMapping(path = "/deleteById/{id}")
+    public String deleteCap(@PathVariable Long id, Model model) {
+            blacklistService.deleteCustomerById(id);
+        return getAllWithDelete(model);
+    }
+
+    @RequestMapping(path = "/edit/{id}")
+    public String editName (@PathVariable Long id, Model model){
+        Blacklist customer = blacklistService.getById(id);
+        model.addAttribute("Blacklist", customer);
+        return "editBlacklistForm";
+    }
+
+    @PostMapping("/update")
+    public String updateCustomerName(Model model, BlacklistDto blacklistDto){
+        blacklistDto.setCreated(new Date());
+        blacklistService.addCustomerToBlacklist(blacklistDto);
+
+        List<BlacklistDto> customers = blacklistService.getAllBlacklistedCustomers();
+        model.addAttribute("allCustomers", customers);
+        model.addAttribute("customerTitle", "All blacklisted Customers");
+        model.addAttribute("addCustomer", "Add Customers");
+        return "showAllBlacklistedCustomers";
     }
 
 

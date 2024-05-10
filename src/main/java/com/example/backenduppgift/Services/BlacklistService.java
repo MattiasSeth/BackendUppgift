@@ -22,4 +22,8 @@ public interface BlacklistService {
     public BlacklistDto blacklistToBlacklistDto(Blacklist blacklist);
 
     public String addCustomerToBlacklist (BlacklistDto blacklistDto);
+
+    public void deleteCustomerById(Long id);
+
+    public Blacklist getById(Long id);
 }

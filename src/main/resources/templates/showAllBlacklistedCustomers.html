@@ -24,10 +24,9 @@
             <td th:text="${blacklist.created}"></td>
             <td th:text="${blacklist.ok}"></td>
             <td th:text="${blacklist.customerGroup}"></td>
-            <!--
-            <td><a th:href="@{/customer/deleteById/{id}(id=${customer.id})}">Delete</a></td>
-            <td><a th:href="@{/customer/edit/{id}(id=${customer.id})}">Change name</a></td>
-            -->
+            <td><a th:href="@{/blacklist/deleteById/{id}(id=${blacklist.id})}">Delete</a></td>
+            <td><a th:href="@{/blacklist/edit/{id}(id=${blacklist.id})}">Edit customer</a></td>
+
         </tr>
         </tbody>
     </table>

@@ -2,8 +2,10 @@ package com.example.backenduppgift.Services.impl;
 
 import com.example.backenduppgift.DTO.BlacklistDto;
 import com.example.backenduppgift.Entities.Blacklist;
+import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Repositories.BlacklistRepository;
 import com.example.backenduppgift.Services.BlacklistService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +76,16 @@ public class BlacklistServiceImpl implements BlacklistService {
     public String addCustomerToBlacklist(BlacklistDto blacklistDto) {
         blacklistRepository.save(blacklistDtoTOBlacklist(blacklistDto));
         return "Customer saved";
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomerById(Long id) {
+        blacklistRepository.deleteById(id);
+    }
+
+    @Override
+    public Blacklist getById(Long id) {
+        return blacklistRepository.findById(id).get();
     }
 }
