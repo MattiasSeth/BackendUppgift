@@ -31,7 +31,6 @@ public class Booking {
     @ManyToOne
     private Room room;
 
-    @NotEmpty(message = "Extra beds cant be empty")
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;
