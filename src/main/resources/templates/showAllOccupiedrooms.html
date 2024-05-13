@@ -11,6 +11,7 @@
         <thead>
         <tr>
             <th>Customer</th>
+            <th>Room Price</th>
             <th>Room Type</th>
             <th>Extra Beds</th>
             <th>Start Date</th>
@@ -20,6 +21,7 @@
         <tbody>
         <tr th:each="Bookings  : ${allBookings}">
             <td th:text="${Bookings.customer.name}"></td>
+            <td th:text="${Bookings.room.price}"></td>
             <td th:text="${Bookings.room.roomType}"></td>
             <td th:text="${Bookings.extraBeds}"></td>
             <td th:text="${Bookings.startDate}"></td>
