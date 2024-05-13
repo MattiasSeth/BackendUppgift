@@ -7,6 +7,7 @@ import com.example.backenduppgift.Services.ContractCustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,17 @@ public class ContractCustomerServiceImpl implements ContractCustomerService {
         contractCustomerRepository.findByExternalId(customerXMLExternalId);
         Optional<ContractCustomer> customerXMLOptional = Optional.ofNullable(contractCustomerRepository.findByExternalId(customerXMLExternalId));
         return customerXMLOptional.isPresent();
+    }
+
+    @Override
+    public List<ContractCustomerDTO> getAllContractCustomers() {
+        return contractCustomerRepository.findAll().stream().map(r -> contractCustomerToContractCustomerDto(r)).toList();
+    }
+
+    private ContractCustomerDTO contractCustomerToContractCustomerDto(ContractCustomer contractCustomer) {
+        return ContractCustomerDTO.builder().companyName(contractCustomer.getCompanyName())
+                .contactName(contractCustomer.getContactName())
+                .country(contractCustomer.getCountry())
+                .contactTitle(contractCustomer.getContactTitle()).build();
     }
 }
