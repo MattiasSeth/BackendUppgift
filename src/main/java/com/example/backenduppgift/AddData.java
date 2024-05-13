@@ -39,16 +39,16 @@ public class AddData implements CommandLineRunner {
         customerRepository.save(c5);
 
         // Rooms
-        Room r1 = new Room("Single",0);
-        Room r2 = new Room("Single",0);
-        Room r3 = new Room("Single",0);
-        Room r4 = new Room("Single",0);
-        Room r5 = new Room("Double",1);
-        Room r6 = new Room("Double",1);
-        Room r7 = new Room("Double",1);
-        Room r8 = new Room("Double",2);
-        Room r9 = new Room("Double",2);
-        Room r10 = new Room("Double",2);
+        Room r1 = new Room("Single",0,700);
+        Room r2 = new Room("Single",0,925);
+        Room r3 = new Room("Single",0,850);
+        Room r4 = new Room("Single",0,1015);
+        Room r5 = new Room("Double",1,1750);
+        Room r6 = new Room("Double",1,1225);
+        Room r7 = new Room("Double",1,2000);
+        Room r8 = new Room("Double",2,1450);
+        Room r9 = new Room("Double",2,1275);
+        Room r10 = new Room("Double",2,975);
 
         roomRepository.save(r1);
         roomRepository.save(r2);

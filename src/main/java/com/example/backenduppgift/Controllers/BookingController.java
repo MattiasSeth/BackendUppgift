@@ -128,6 +128,7 @@ public class BookingController {
         Room room = roomService.getByIdToRoom(id);
 
         model.addAttribute("roomId", id);
+        model.addAttribute("roomPrice", room.getPrice());
         model.addAttribute("roomType", room.getRoomType());
         model.addAttribute("roomSize", room.getSize());
         return "setExtraBeds";
