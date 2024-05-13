@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerXML {
+public class ContractCustomer {
 
     @Id
     @GeneratedValue

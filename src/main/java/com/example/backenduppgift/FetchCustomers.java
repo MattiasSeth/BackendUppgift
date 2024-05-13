@@ -1,9 +1,9 @@
 package com.example.backenduppgift;
 
-import com.example.backenduppgift.DTO.CustomerListXMLDto;
-import com.example.backenduppgift.DTO.CustomerXMLDto;
-import com.example.backenduppgift.Entities.CustomerXML;
-import com.example.backenduppgift.Services.CustomerXMLService;
+import com.example.backenduppgift.DTO.ContractCustomerListDTO;
+import com.example.backenduppgift.DTO.ContractCustomerDTO;
+import com.example.backenduppgift.Entities.ContractCustomer;
+import com.example.backenduppgift.Services.ContractCustomerService;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @ComponentScan
 public class FetchCustomers implements CommandLineRunner {
 
-    private final CustomerXMLService customerXMLService;
+    private final ContractCustomerService contractCustomerService;
 
 
     @Override
@@ -26,18 +26,18 @@ public class FetchCustomers implements CommandLineRunner {
             module.setDefaultUseWrapper(false);
             XmlMapper xmlMapper = new XmlMapper(module);
             System.out.println("Before reading XML data");
-            CustomerListXMLDto customerListXMLDto = xmlMapper.readValue(new URL("https://javaintegration.systementor.se/customers"),
-                    CustomerListXMLDto.class);
+            ContractCustomerListDTO contractCustomerListDTO = xmlMapper.readValue(new URL("https://javaintegration.systementor.se/customers"),
+                    ContractCustomerListDTO.class);
 
             System.out.println("After reading XML data");
 
             // Access the list of customer DTOs and iterate over them
-            List<CustomerXMLDto> customerList = customerListXMLDto.getCustomerXMLDtoList();
+            List<ContractCustomerDTO> customerList = contractCustomerListDTO.getContractCustomerDTOList();
 
             for (int i=0; i<customerList.size(); i++){
-                CustomerXML tempCustomerXML = customerXMLService.customerXMLDtoToCustomer(customerList.get(i));
-                if (!customerXMLService.existsCustomerXML(tempCustomerXML)) {
-                    customerXMLService.addCustomer(tempCustomerXML);
+                ContractCustomer tempContractCustomer = contractCustomerService.customerXMLDtoToCustomer(customerList.get(i));
+                if (!contractCustomerService.existsCustomerXML(tempContractCustomer)) {
+                    contractCustomerService.addCustomer(tempContractCustomer);
                 }
             }
 

@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerListXMLDto {
+public class ContractCustomerListDTO {
     @JacksonXmlProperty(localName = "customers")
     @JacksonXmlElementWrapper(useWrapping = false)
-    public List<CustomerXMLDto> customerXMLDtoList;
+    public List<ContractCustomerDTO> contractCustomerDTOList;
 }

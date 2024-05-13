@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerXMLDto {
+public class ContractCustomerDTO {
+
+    @JsonIgnore
+    public long id;
 
     @JacksonXmlProperty(localName = "id", isAttribute = true)
     public int externalId;
