@@ -7,6 +7,7 @@ import com.example.backenduppgift.Services.ShipperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,18 @@ public class ShipperServiceImpl implements ShipperService {
         return Shipper.builder().externalId(shipperDto.getExternalId())
                 .phone(shipperDto.getPhone())
                 .companyName(shipperDto.getCompanyName())
+                .contactName(shipperDto.getContactName())
+                .country(shipperDto.getCountry())
+                .build();
+    }
+
+    @Override
+    public ShipperDto shipperToShipperDto(Shipper shipper) {
+        return ShipperDto.builder().externalId(shipper.getExternalId())
+                .phone(shipper.getPhone())
+                .companyName(shipper.getCompanyName())
+                .contactName(shipper.getContactName())
+                .country(shipper.getCountry())
                 .build();
     }
 
@@ -34,6 +47,11 @@ public class ShipperServiceImpl implements ShipperService {
 
         Optional<Shipper> shipperOptional = Optional.ofNullable(shipperRepository.findByExternalId(shipperExternalId));
         return shipperOptional.isPresent();
+    }
+
+    @Override
+    public List<ShipperDto> getAllShippers() {
+        return shipperRepository.findAll().stream().map(r -> shipperToShipperDto(r)).toList();
     }
 
 }

@@ -22,4 +22,6 @@ public class Shipper {
     private int externalId; // Json Id
     private String companyName;
     private String phone;
+    private String contactName;
+    private String country;
 }
