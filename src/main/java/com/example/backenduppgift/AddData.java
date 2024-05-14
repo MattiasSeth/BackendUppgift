@@ -2,9 +2,11 @@ package com.example.backenduppgift;
 
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
+import com.example.backenduppgift.Entities.Queue;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Repositories.CustomerRepository;
+import com.example.backenduppgift.Repositories.QueueRepository;
 import com.example.backenduppgift.Repositories.RoomRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,10 +20,13 @@ public class AddData implements CommandLineRunner {
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
 
-    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository) {
+    private final QueueRepository queueRepository;
+
+    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, QueueRepository queueRepository) {
         this.customerRepository = customerRepository;
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
+        this.queueRepository = queueRepository;
     }
 
     @Override
@@ -68,6 +73,15 @@ public class AddData implements CommandLineRunner {
         // Bookings
         bookingRepository.save(new Booking(c1,r1,0,startDate,endDate));
         bookingRepository.save(new Booking(c2,r2,0,startDate,endDate));
+
+        // Queues
+        Queue q1 = new Queue("Testname",r1,2);
+        Queue q2 = new Queue("Testname2",r2,2);
+        Queue q3 = new Queue("Testname3",r3,2);
+
+        queueRepository.save(q1);
+        queueRepository.save(q2);
+        queueRepository.save(q3);
 
     }
 }

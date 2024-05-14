@@ -29,4 +29,10 @@ public class Queue {
 
     @Column(name="MessagesToSend")
     private int messagesToSend;
+
+    public Queue(String name, Room room, int messagesToSend) {
+        this.name = name;
+        this.room = room;
+        this.messagesToSend = messagesToSend;
+    }
 }

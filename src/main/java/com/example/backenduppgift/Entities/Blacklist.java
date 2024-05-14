@@ -25,11 +25,11 @@ public class Blacklist {
 
     private int externalId;  // json ID
 
-    @NotEmpty(message = "Email cannot be empty")
-    @Email(message = "Invalid email-address, the email needs to be a real email address" )
+    //@NotEmpty(message = "Email cannot be empty")
+    //@Email(message = "Invalid email-address, the email needs to be a real email address" )
     private String email;
 
-    @NotEmpty(message = "Name cannot be empty")
+    //@NotEmpty(message = "Name cannot be empty")
     private String name;
 
     private String customerGroup;

@@ -23,8 +23,8 @@ public class Room {
     @Id
     @GeneratedValue
     private Long id;
-    @NotNull
-    @NotEmpty
+    //@NotNull
+    //@NotEmpty
     private int price;
     @NotNull
     @NotEmpty(message = "Room type cant be empty, please input singel or double")
