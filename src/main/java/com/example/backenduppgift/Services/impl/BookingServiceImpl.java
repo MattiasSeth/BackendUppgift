@@ -11,6 +11,7 @@ import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -98,5 +99,4 @@ public class BookingServiceImpl implements BookingService {
     public void addNewBookingFromEdit(Booking booking) {
         br.save(booking);
     }
-
 }
