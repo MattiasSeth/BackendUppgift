@@ -47,6 +47,10 @@ public class BackendUppgiftApplication {
             SpringApplication application = new SpringApplication(FetchCustomers.class);
             application.setWebApplicationType(WebApplicationType.NONE);
             application.run(args);
+        }else if (Objects.equals(args[0], "Queue")){
+            SpringApplication application = new SpringApplication(ReadQueueApp.class);
+            application.setWebApplicationType(WebApplicationType.NONE);
+            application.run(args);
         }
     }
 }
