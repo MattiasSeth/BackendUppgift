@@ -48,12 +48,7 @@ class BookingServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Load data from XML or other resources
-        InputStream is = getClass().getClassLoader().getResourceAsStream("test-data.xml");
-        // Parse XML and set up your test data here
-
-        // Example setup
-        Customer customer = new Customer(1L, "John Doe", "john.doe@example.com");
+        Customer customer = new Customer(1L, "Albin Karlsson", "albin.karl@example.com");
         Room room = new Room(1L, 100, "Single", 1);
         booking = new Booking(customer, room, 1, LocalDate.now(), LocalDate.now().plusDays(1));
         detailedBookingDto = DetailedBookingDto.builder()
@@ -61,7 +56,7 @@ class BookingServiceImplTest {
                 .extraBeds(1)
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
-                .customer(new CustomerDto(1L, "John Doe", "john.doe@example.com"))
+                .customer(new CustomerDto(1L, "Albin Karlsson", "albin.karl@example.com"))
                 .room(new RoomDto(1L, 100, "Single", 1))
                 .build();
     }
