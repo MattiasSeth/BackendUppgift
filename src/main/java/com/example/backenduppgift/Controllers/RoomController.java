@@ -2,8 +2,10 @@ package com.example.backenduppgift.Controllers;
 
 import com.example.backenduppgift.DTO.BlacklistDto;
 import com.example.backenduppgift.DTO.RoomDto;
+import com.example.backenduppgift.DTO.RoomEventDTO;
 import com.example.backenduppgift.Entities.Blacklist;
 import com.example.backenduppgift.Services.BlacklistService;
+import com.example.backenduppgift.Services.RoomEventService;
 import com.example.backenduppgift.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService roomService;
+    private final RoomEventService roomEventService;
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
@@ -31,5 +34,12 @@ public class RoomController {
         return "showAllRooms";
     }
 
+    @RequestMapping(path = "/details/{id}")
+    public String editName (@PathVariable Long id, Model model){
+        List<RoomEventDTO> roomEvents = roomEventService.getRoomEventWithRoomId(id);
+        model.addAttribute("roomDetails", "Room details");
+        model.addAttribute("roomEvents", roomEvents);
+        return "showRoomDetails";
+    }
 
 }

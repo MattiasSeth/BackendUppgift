@@ -12,6 +12,8 @@ import com.example.backenduppgift.Services.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RoomEventServiceImpl implements RoomEventService {
@@ -31,5 +33,19 @@ public class RoomEventServiceImpl implements RoomEventService {
     @Override
     public void addRoomEvent(RoomEvent roomEvent) {
         roomEventRepository.save(roomEvent);
+    }
+
+    @Override
+    public List<RoomEventDTO> getRoomEventWithRoomId(long roomId) {
+        List<RoomEvent> roomEvents = roomEventRepository.findRoomEventByRoomId(roomId);
+        return roomEvents.stream().map(c -> roomEventToRoomEventDTO(c)).toList();
+    }
+
+    @Override
+    public RoomEventDTO roomEventToRoomEventDTO(RoomEvent roomEvent) {
+        return RoomEventDTO.builder().cleaningByUser(roomEvent.getCleaningByUser())
+                .timeStamp(roomEvent.getTimeStamp())
+                .type(roomEvent.getType())
+                .build();
     }
 }
