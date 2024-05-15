@@ -2,11 +2,10 @@ package com.example.backenduppgift;
 
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
-import com.example.backenduppgift.Entities.RoomEvent;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Repositories.CustomerRepository;
-import com.example.backenduppgift.Repositories.QueueRepository;
+import com.example.backenduppgift.Repositories.RoomEventRepository;
 import com.example.backenduppgift.Repositories.RoomRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,13 +19,13 @@ public class AddData implements CommandLineRunner {
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
 
-    private final QueueRepository queueRepository;
+    private final RoomEventRepository roomEventRepository;
 
-    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, QueueRepository queueRepository) {
+    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, RoomEventRepository roomEventRepository) {
         this.customerRepository = customerRepository;
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
-        this.queueRepository = queueRepository;
+        this.roomEventRepository = roomEventRepository;
     }
 
     @Override
@@ -75,16 +74,6 @@ public class AddData implements CommandLineRunner {
         bookingRepository.save(new Booking(c2,r2,0,startDate,endDate));
 
         // Queues
-        /*
-        RoomEvent q1 = new RoomEvent("Testname",r1,2);
-        RoomEvent q2 = new RoomEvent("Testname2",r2,2);
-        RoomEvent q3 = new RoomEvent("Testname3",r3,2);
-
-        queueRepository.save(q1);
-        queueRepository.save(q2);
-        queueRepository.save(q3);
-
-         */
 
     }
 }

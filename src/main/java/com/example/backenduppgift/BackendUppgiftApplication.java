@@ -1,27 +1,9 @@
 package com.example.backenduppgift;
 
-import com.example.backenduppgift.Entities.Booking;
-import com.example.backenduppgift.Entities.Customer;
-import com.example.backenduppgift.Entities.Room;
-import com.example.backenduppgift.Repositories.BookingRepository;
-import com.example.backenduppgift.Repositories.CustomerRepository;
-import com.example.backenduppgift.Repositories.RoomRepository;
-import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Objects;
-
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 //
@@ -47,8 +29,8 @@ public class BackendUppgiftApplication {
             SpringApplication application = new SpringApplication(FetchCustomers.class);
             application.setWebApplicationType(WebApplicationType.NONE);
             application.run(args);
-        }else if (Objects.equals(args[0], "Queue")){
-            SpringApplication application = new SpringApplication(ReadQueueApp.class);
+        }else if (Objects.equals(args[0], "fetchqueue")){
+            SpringApplication application = new SpringApplication(FetchQueue.class);
             application.setWebApplicationType(WebApplicationType.NONE);
             application.run(args);
         }

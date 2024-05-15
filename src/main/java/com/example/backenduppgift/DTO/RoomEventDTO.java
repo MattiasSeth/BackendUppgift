@@ -19,7 +19,7 @@ public class RoomEventDTO {
     public Date timeStamp;
 
     @JsonProperty("RoomNo")
-    public int roomNo;
+    public Long roomNo;
 
     @JsonProperty("CleaningByUser")
     public String cleaningByUser;
