@@ -1,4 +1,4 @@
-package com.example.backenduppgift.Services.impl;
+package com.example.backenduppgift.Services;
 
 import com.example.backenduppgift.DTO.BookingDto;
 import com.example.backenduppgift.DTO.CustomerDto;
@@ -10,6 +10,7 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
+import com.example.backenduppgift.Services.impl.BookingServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
