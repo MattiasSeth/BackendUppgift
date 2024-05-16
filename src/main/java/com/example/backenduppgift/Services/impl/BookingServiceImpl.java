@@ -1,6 +1,5 @@
 package com.example.backenduppgift.Services.impl;
 
-import com.example.backenduppgift.DTO.BookingDto;
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
@@ -11,12 +10,12 @@ import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.CustomerService;
 import com.example.backenduppgift.Services.RoomService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
-    final private BookingRepository br;
+    final private BookingRepository bookingRepository;
     private final CustomerService customerService;
     private final RoomService roomService;
 
@@ -51,30 +50,30 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<DetailedBookingDto> getAllBookings() {
-        return br.findAll().stream().map(b->bookingToDetailedBookingDto(b)).toList();
+        return bookingRepository.findAll().stream().map(b->bookingToDetailedBookingDto(b)).toList();
     }
 
     @Override
     public String addBookingDto(DetailedBookingDto bookingDto) {
-        br.save(bookingToDetailedBookingDto(bookingDto));
+        bookingRepository.save(bookingToDetailedBookingDto(bookingDto));
         return "The booking has been saved";
     }
 
     @Override
     public boolean checkBookingsByCustomerId(Long id) {
-        Optional<Booking> bookingOptional = br.findById(id);
+        Optional<Booking> bookingOptional = bookingRepository.findById(id);
         return bookingOptional.isPresent();
     }
 
     @Override
     @Transactional
     public void deleteBookingById(Long id) {
-        br.deleteById(id);
+        bookingRepository.deleteById(id);
     }
 
     @Override
     public Booking getById(Long id) {
-        return br.findById(id).get();
+        return bookingRepository.findById(id).get();
     }
 
     @Override
@@ -97,6 +96,27 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void addNewBookingFromEdit(Booking booking) {
-        br.save(booking);
+        bookingRepository.save(booking);
+    }
+
+    @Override
+    public double getFinalPrice(Long customerId) {  // ADD TOTAL PRICE VARIABLE!!!
+        double totalPrice = 10000;
+        Long totalDays = 0L;
+        List<Booking> customerBookings = new ArrayList<>();
+        List<Booking> allBookings = bookingRepository.findAll();
+
+        for (Booking tempBooking : allBookings) {
+            if (tempBooking.getCustomer().getId() == customerId) {
+                customerBookings.add(tempBooking);
+            }
+        }
+        for (Booking tempBooking : customerBookings) {
+            totalDays = totalDays + ChronoUnit.DAYS.between(tempBooking.getStartDate(), tempBooking.getEndDate());
+        }
+        if (totalDays >= 10){
+            return totalPrice*0.98;
+        }else
+            return totalPrice;
     }
 }

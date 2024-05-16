@@ -32,4 +32,6 @@ public interface BookingService {
 
     public void addNewBookingFromEdit(Booking booking);
 
+    public double getFinalPrice(Long customerId);
+
 }
