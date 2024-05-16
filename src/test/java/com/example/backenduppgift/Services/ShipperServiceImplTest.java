@@ -1,5 +1,4 @@
 package com.example.backenduppgift.Services;
-
 import com.example.backenduppgift.DTO.ShipperDto;
 import com.example.backenduppgift.Entities.Shipper;
 import com.example.backenduppgift.Repositories.ShipperRepository;
@@ -8,10 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
