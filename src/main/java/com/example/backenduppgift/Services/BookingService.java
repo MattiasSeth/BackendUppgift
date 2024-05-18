@@ -32,4 +32,5 @@ public interface BookingService {
 
     public void addNewBookingFromEdit(Booking booking);
 
+    void calculateDiscount(LocalDate startDate, LocalDate endDate, List<RoomDto> availableRooms);
 }

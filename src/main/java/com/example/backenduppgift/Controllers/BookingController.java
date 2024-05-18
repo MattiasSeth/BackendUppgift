@@ -113,6 +113,12 @@ public class BookingController {
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
+
+        // Caluculate discount
+        if (availableRooms != null) {
+            bookingService.calculateDiscount(startDate, endDate, availableRooms);
+        }
+
         model.addAttribute("availableRooms", availableRooms);
         return "displayAvalibleRooms";
     }

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -98,5 +99,40 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void addNewBookingFromEdit(Booking booking) {
         br.save(booking);
+    }
+
+    @Override
+    public void calculateDiscount(LocalDate startDate, LocalDate endDate, List<RoomDto> availableRooms) {
+        for (RoomDto room : availableRooms) {
+            int newPrice = (int) calculatePrice(startDate, endDate, room.getPrice());
+            room.setPrice(newPrice);
+        }
+    }
+
+    private double calculatePrice(LocalDate startDate, LocalDate endDate, int price){
+        long nights = ChronoUnit.DAYS.between(startDate, endDate);
+        LocalDate tempDate = startDate;
+        int sundays = 0;
+        double sundayDiscount = 0.98;
+        double dailyDiscount = 0.995;
+        double result = 0;
+
+        while (!tempDate.isAfter(endDate.minusDays(1))) {
+            if(tempDate.getDayOfWeek().toString().equalsIgnoreCase("SUNDAY"))
+                sundays++;
+            tempDate = tempDate.plusDays(1);
+        }
+
+        if (nights < 2 && sundays < 1){
+            return  price;
+        } else if (nights < 2 && sundays == 1) {
+            return  price*sundayDiscount;
+        }else if (nights > 1 && sundays == 0) {
+            return price*nights*dailyDiscount;
+        } else {
+            nights = nights-sundays;
+            result = (nights*price*dailyDiscount)+(sundays*price*dailyDiscount*sundayDiscount);
+            return result;
+        }
     }
 }
