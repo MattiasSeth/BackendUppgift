@@ -20,6 +20,7 @@ public class DetailedBookingDto {
     private CustomerDto customer;
     private RoomDto room;
 
+    private double totalPrice;
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;

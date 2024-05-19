@@ -70,8 +70,8 @@ public class AddData implements CommandLineRunner {
         LocalDate endDate = LocalDate.of(2025, 4, 30);
 
         // Bookings
-        bookingRepository.save(new Booking(c1,r1,0,startDate,endDate));
-        bookingRepository.save(new Booking(c2,r2,0,startDate,endDate));
+        bookingRepository.save(new Booking(c1,r1,0,startDate,endDate, 10000));
+        bookingRepository.save(new Booking(c2,r2,0,startDate,endDate, 20000));
 
         // Queues
 

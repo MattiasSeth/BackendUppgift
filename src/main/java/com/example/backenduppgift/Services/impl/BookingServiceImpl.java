@@ -33,6 +33,7 @@ public class BookingServiceImpl implements BookingService {
                 .extraBeds(b.getExtraBeds())
                 .startDate(b.getStartDate())
                 .endDate(b.getEndDate())
+                .totalPrice(b.getTotalPrice())
                 .customer(new CustomerDto(b.getCustomer().getId(),b.getCustomer().getName(), b.getCustomer().getEmail()))
                 .room(new RoomDto(b.getRoom().getId(),b.getRoom().getPrice(), b.getRoom().getRoomType(),b.getRoom().getSize())).build();
     }
@@ -43,6 +44,7 @@ public class BookingServiceImpl implements BookingService {
                 .extraBeds(bookingDto.getExtraBeds())
                 .startDate(bookingDto.getStartDate())
                 .endDate(bookingDto.getEndDate())
+                .totalPrice(bookingDto.getTotalPrice())
                 .customer(new Customer(bookingDto.getCustomer().getId(), bookingDto.getCustomer().getName(),bookingDto.getCustomer().getEmail()))
                 .room(new Room(bookingDto.getRoom().getId(),bookingDto.getRoom().getPrice(), bookingDto.getRoom().getRoomType()
                         ,bookingDto.getRoom().getSize())).build();

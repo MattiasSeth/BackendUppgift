@@ -16,4 +16,5 @@ public class BookingDto {
     private int extraBeds;
     private LocalDate startDate;
     private LocalDate endDate;
+    private double totalPrice;
 }

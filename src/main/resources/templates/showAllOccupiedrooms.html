@@ -16,6 +16,7 @@
             <th>Extra Beds</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Total Price</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
             <td th:text="${Bookings.extraBeds}"></td>
             <td th:text="${Bookings.startDate}"></td>
             <td th:text="${Bookings.endDate}"></td>
+            <td th:text="${Bookings.totalPrice}"></td>
             <td><a th:href="@{/bookings/deleteById/{id}(id=${Bookings.id})}">Delete</a></td>
             <td><a th:href="@{/bookings/edit/{id}(id=${Bookings.id})}">Edit booking</a></td>
         </tr>

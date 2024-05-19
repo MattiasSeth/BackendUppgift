@@ -144,7 +144,12 @@ public class BookingController {
     Customer customer = customerService.getById(customerId);
     Room room = roomService.getByIdToRoom(roomId);
 
-    Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate);
+
+    double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
+    double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
+    //System.out.println(finalPrice);
+
+    Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
 
     return "redirect:/bookings/all";
