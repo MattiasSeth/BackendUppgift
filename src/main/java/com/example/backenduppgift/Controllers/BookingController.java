@@ -168,4 +168,10 @@ public class BookingController {
         return "result";
     }
 
+    @GetMapping("/test")
+    public String testFinalPrice(Model model){
+        double result = bookingService.getFinalPrice(1L);
+        model.addAttribute("finalPrice", result);
+        return "test";
+    }
 }
