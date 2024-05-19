@@ -6,10 +6,7 @@ import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
-import com.example.backenduppgift.Services.BlacklistService;
-import com.example.backenduppgift.Services.BookingService;
-import com.example.backenduppgift.Services.CustomerService;
-import com.example.backenduppgift.Services.RoomService;
+import com.example.backenduppgift.Services.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,6 +26,7 @@ public class BookingController {
     private final CustomerService customerService;
     private final RoomService roomService;
     private final BlacklistService blacklistService;
+    private final DiscountService discountService;
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -114,11 +112,6 @@ public class BookingController {
         model.addAttribute("endDate", endDate);
         List<RoomDto> availableRooms = bookingService.findAvailableRooms(startDate, endDate);
 
-        // Caluculate discount
-        if (availableRooms != null) {
-            bookingService.calculateDiscount(startDate, endDate, availableRooms);
-        }
-
         model.addAttribute("availableRooms", availableRooms);
         return "displayAvalibleRooms";
     }
@@ -170,7 +163,11 @@ public class BookingController {
 
     @GetMapping("/test")
     public String testFinalPrice(Model model){
-        double result = bookingService.getFinalPrice(1L);
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(10);
+
+        double discount = discountService.calculatePrice(startDate,endDate,1000);
+        double result = discountService.getFinalPrice(1L,discount);
         model.addAttribute("finalPrice", result);
         return "test";
     }
