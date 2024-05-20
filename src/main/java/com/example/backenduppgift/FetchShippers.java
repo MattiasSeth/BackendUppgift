@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.List;
 @RequiredArgsConstructor
-@Component
+@ComponentScan
 public class FetchShippers implements CommandLineRunner {
 
     private final ShipperService shipperService;
@@ -26,6 +26,7 @@ public class FetchShippers implements CommandLineRunner {
         CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class, ShipperDto.class);
         List<ShipperDto> shippersList = objectMapper.readValue(new URL("https://javaintegration.systementor.se/shippers"),
                 collectionType);
+        System.out.println("Fetching shippers");
 
         for (int i=0; i<shippersList.size(); i++){
             Shipper tempShipper = shipperService.shipperDtoToShipper(shippersList.get(i));

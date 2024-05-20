@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.List;
 @RequiredArgsConstructor
-@Component
+@ComponentScan
 public class FetchCustomers implements CommandLineRunner {
 
     private final ContractCustomerService contractCustomerService;
@@ -32,7 +32,6 @@ public class FetchCustomers implements CommandLineRunner {
 
             System.out.println("After reading XML data");
 
-            // Access the list of customer DTOs and iterate over them
             List<ContractCustomerDTO> customerList = contractCustomerListDTO.getContractCustomerDTOList();
 
             for (int i=0; i<customerList.size(); i++){

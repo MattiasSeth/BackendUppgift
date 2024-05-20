@@ -25,6 +25,7 @@ public class FetchBlacklist implements CommandLineRunner {
         CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class, BlacklistDto.class);
         List<BlacklistDto> blacklistList = objectMapper.readValue(new URL("https://javabl.systementor.se/api/stefan/blacklist"),
                 collectionType);
+        System.out.println("Fetching blacklist");
 
         for (int i=0; i<blacklistList.size(); i++){
             Blacklist tempBlacklist = blacklistService.blacklistDtoTOBlacklist(blacklistList.get(i));
