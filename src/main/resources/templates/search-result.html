@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <style>
+        .header-flex {
+            display: inline-flex;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/contract-customer/search}" method="get">
+    <input type="text" name="searchWord" placeholder="Sök efter kunder" th:value="${searchWord}">
+    <button type="submit">Sök</button>
+</form>
+<h2 th:text="${contractCustomerTitle}"></h2>
+<div class="contractCustomers" th:if="${!#lists.isEmpty(clientsPage.content)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Company
+                <div class="header-flex">
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='companyName',sortOrder='asc')}"><i class="fas fa-arrow-down"></i></a>
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='companyName',sortOrder='desc')}"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            </th>
+            <th>Contact
+                <div class="header-flex">
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='contactName',sortOrder='asc')}"><i class="fas fa-arrow-down"></i></a>
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='contactName',sortOrder='desc')}"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            </th>
+            <th>City
+                <div class="header-flex">
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='city',sortOrder='asc')}"><i class="fas fa-arrow-down"></i></a>
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='city',sortOrder='desc')}"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            </th>
+            <th>Country
+                <div class="header-flex">
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='country',sortOrder='asc')}"><i class="fas fa-arrow-down"></i></a>
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='country',sortOrder='desc')}"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            </th>
+            <th>Fax
+                <div class="header-flex">
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='fax',sortOrder='asc')}"><i class="fas fa-arrow-down"></i></a>
+                    <a th:href="@{/contract-customer/search(searchWord=${searchWord},sortBy='fax',sortOrder='desc')}"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${clientsPage.content}">
+            <td th:text="${customer.companyName}">Company Name</td>
+            <td th:text="${customer.contactName}">Contact Name</td>
+            <td th:text="${customer.city}">City</td>
+            <td th:text="${customer.country}">Country</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="pagination">
+    <span>Page <strong th:text="${clientsPage.number + 1}"></strong> of <strong th:text="${clientsPage.totalPages}"></strong></span>
+    <span th:if="${clientsPage.hasPrevious()}">
+        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number - 1},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">Previous</a>
+    </span>
+    <span th:each="pageNum : ${#numbers.sequence(1, clientsPage.totalPages)}">
+        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${pageNum},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">
+            <button th:text="${pageNum}" th:classappend="${pageNum == clientsPage.number + 1 ? 'active' : ''}"></button>
+        </a>
+    </span>
+    <span th:if="${clientsPage.hasNext()}">
+        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number + 1},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">Next</a>
+    </span>
+</div>
+</body>
+</html>

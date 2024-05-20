@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar">
+    </nav>
+    <h2>Företagskund</h2>
+    <hr class="divider">
+    <p>Företagsnamn: <span th:text="${contractCustomer.companyName}"></span></p>
+    <p>Kontaktnamn: <span th:text="${contractCustomer.contactName}"></span></p>
+    <p>Titel: <span th:text="${contractCustomer.contactTitle}"></span></p>
+    <p>Adress: <span th:text="${contractCustomer.streetAddress}"></span></p>
+    <p>Stad: <span th:text="${contractCustomer.city}"></span></p>
+    <p>Postnummer: <span th:text="${contractCustomer.postalCode}"></span></p>
+    <p>Land: <span th:text="${contractCustomer.country}"></span></p>
+    <p>Telefonnummer: <span th:text="${contractCustomer.phone}"></span></p>
+    <p>Faxnummer: <span th:text="${contractCustomer.fax}"></span></p>
+</div>
+</body>
+</html>

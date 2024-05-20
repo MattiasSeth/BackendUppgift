@@ -5,10 +5,12 @@ import com.example.backenduppgift.Entities.ContractCustomer;
 import com.example.backenduppgift.Repositories.ContractCustomerRepository;
 import com.example.backenduppgift.Services.ContractCustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,8 +48,26 @@ public class ContractCustomerServiceImpl implements ContractCustomerService {
     }
 
     @Override
+    public List<ContractCustomer> searchCompanies(String searchWord, Sort sort) {
+        List<ContractCustomer> companyClients = contractCustomerRepository.findAll(sort); // sorterar sökt kunder
+        List<ContractCustomer> companyClientHits = companyClients.stream()
+
+                .filter(cc -> cc.getCompanyName().contains(searchWord) ||
+                        cc.getContactName().contains(searchWord) ||
+                        cc.getCity().contains(searchWord) ||
+                        cc.getCountry().contains(searchWord))
+                .collect(Collectors.toList());
+        return companyClientHits;    }
+
+    @Override
     public List<ContractCustomerDTO> getAllContractCustomers() {
         return contractCustomerRepository.findAll().stream().map(r -> contractCustomerToContractCustomerDto(r)).toList();
+    }
+
+    @Override
+    public ContractCustomer getCustomerById(Long id) {
+        ContractCustomer contractCustomer = contractCustomerRepository.findByExternalId(Math.toIntExact(id));
+        return contractCustomer;
     }
 
     private ContractCustomerDTO contractCustomerToContractCustomerDto(ContractCustomer contractCustomer) {
