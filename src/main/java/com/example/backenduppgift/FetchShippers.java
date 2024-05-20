@@ -9,11 +9,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
 @RequiredArgsConstructor
-@ComponentScan
+@Component
 public class FetchShippers implements CommandLineRunner {
 
     private final ShipperService shipperService;
