@@ -9,7 +9,10 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,9 @@ public class BookingController {
     private final RoomService roomService;
     private final BlacklistService blacklistService;
     private final DiscountService discountService;
+
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -151,6 +157,15 @@ public class BookingController {
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
+
+    // Send email test
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setFrom("test@test.com");
+    message.setTo("amely.upton@ethereal.email");
+    message.setSubject("subject");
+    message.setText("Funka PLS");
+    javaMailSender.send(message);
+
 
     return "redirect:/bookings/all";
 }
