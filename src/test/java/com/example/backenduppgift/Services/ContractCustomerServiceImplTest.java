@@ -39,15 +39,15 @@ public class ContractCustomerServiceImplTest {
     void setUp() {
         contractCustomerDTO = ContractCustomerDTO.builder()
                 .externalId(1)
-                .companyName("Test Company")
-                .contactName("John Doe")
+                .companyName("Test")
+                .contactName("John")
                 .contactTitle("Manager")
                 .streetAddress("123 Main St")
                 .city("Anytown")
                 .postalCode(12345)
-                .country("Test Country")
-                .phone("123-456-7890")
-                .fax("098-765-4321")
+                .country("Test")
+                .phone("1234567890")
+                .fax("0987654321")
                 .build();
 
         contractCustomer = ContractCustomer.builder()
@@ -108,7 +108,9 @@ public class ContractCustomerServiceImplTest {
     @Test
     void testXMLMapping() throws Exception {
         XmlMapper xmlMapper = new XmlMapper();
-        try (InputStream inputStream = new FileInputStream("src/test/test-contract-customer.xml")) {
+
+        try (InputStream inputStream = getClass().getResourceAsStream("/test-contract-customer.xml")) {
+            assertNotNull(inputStream, "Input stream should not be null");
             ContractCustomerDTO dtoFromXML = xmlMapper.readValue(inputStream, ContractCustomerDTO.class);
             assertNotNull(dtoFromXML);
             assertEquals(contractCustomerDTO.getExternalId(), dtoFromXML.getExternalId());
@@ -123,6 +125,7 @@ public class ContractCustomerServiceImplTest {
             assertEquals(contractCustomerDTO.getFax(), dtoFromXML.getFax());
         } catch (IOException e) {
             e.printStackTrace();
+            fail("Exception should not have been thrown: " + e.getMessage());
         }
     }
 }
