@@ -13,5 +13,4 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class BlacklistProperties{
     private String url;
-    private String emailtocheck;
 }
