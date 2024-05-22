@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>Set Extra Beds for Room </h2>
-<form action="/bookings/processExtraBeds" method="post">
+<form action="#" th:action="@{/bookings/processExtraBeds}" method="post">
     <input type="hidden" name="roomId" th:value="${roomId}" />
     <label for="extraBeds">Select number of extra beds:</label>
     <select id="extraBeds" name="extraBeds">
