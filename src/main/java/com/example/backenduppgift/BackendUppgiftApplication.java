@@ -1,5 +1,6 @@
 package com.example.backenduppgift;
 
+import com.example.backenduppgift.Configurations.IntegrationProperties;
 import com.example.backenduppgift.Security.UserDataSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +17,7 @@ public class BackendUppgiftApplication {
 
     @Autowired
     private UserDataSeeder userDataSeeder;
+
 
     public static void main(String[] args) {
         if (args.length == 0) {
