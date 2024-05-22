@@ -38,6 +38,15 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.1")
     implementation("com.rabbitmq:amqp-client")
+    implementation("org.yaml:snakeyaml")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("com.github.javafaker:javafaker:1.0.2") { exclude ("org.yaml") }
+    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    implementation("org.modelmapper:modelmapper:3.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+    implementation("org.springframework.security:spring-security-test")
 }
 
 tasks.withType<Test> {
