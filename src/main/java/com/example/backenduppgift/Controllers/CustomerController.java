@@ -29,8 +29,6 @@ public class CustomerController {
     private final CustomerService customerService;
     private final BookingService bookingService;
 
-    @Autowired
-    JavaMailSender javaMailSender;
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
@@ -38,23 +36,6 @@ public class CustomerController {
         model.addAttribute("allCustomers", customers);
         model.addAttribute("customerTitle", "All Customers");
         model.addAttribute("addCustomer", "Add Customers");
-
-        // Ta bort senare.... endast för att testa mail utan log in
-        System.out.println("Before sending email");
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("test@test.com");
-        message.setTo("waldo79@ethereal.email");
-        message.setSubject("subject");
-        message.setText("Funka PLS");
-
-        try {
-            javaMailSender.send(message);
-        } catch (Exception e) {
-            System.out.println("Error sending email: " + e.getMessage());
-        }
-        System.out.println("After sending email");
-
         return "showAllCustomers";
     }
 

@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.Configurations.IntegrationProperties;
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
@@ -33,6 +34,10 @@ public class BookingController {
 
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    IntegrationProperties properties;
+
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -153,18 +158,18 @@ public class BookingController {
 
     double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
     double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
-    //System.out.println(finalPrice);
+
+    System.out.println("Before sending email");
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setFrom("Bokning@Backend2.com");
+    message.setTo(properties.getMail().getEmail());
+    message.setSubject("Booking at Backend2");
+    message.setText("Booking confirmed");
+    javaMailSender.send(message);
+
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
-
-    // Send email test
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setFrom("test@test.com");
-    message.setTo("amely.upton@ethereal.email");
-    message.setSubject("subject");
-    message.setText("Funka PLS");
-    javaMailSender.send(message);
 
 
     return "redirect:/bookings/all";

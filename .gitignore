@@ -27,6 +27,7 @@ out/
 !**/src/test/**/out/
 .idea/workspace.xml
 .idea/misc.xml
+.env
 
 ### NetBeans ###
 /nbproject/private/
