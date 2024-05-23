@@ -1,5 +1,6 @@
 package com.example.backenduppgift.Controllers;
 
+import com.example.backenduppgift.Configurations.IntegrationProperties;
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
@@ -9,7 +10,10 @@ import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +31,13 @@ public class BookingController {
     private final RoomService roomService;
     private final BlacklistService blacklistService;
     private final DiscountService discountService;
+
+    @Autowired
+    JavaMailSender javaMailSender;
+
+    @Autowired
+    IntegrationProperties properties;
+
 
     @RequestMapping("/all")
     public String getAllBookings(Model model){
@@ -147,10 +158,19 @@ public class BookingController {
 
     double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
     double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
-    //System.out.println(finalPrice);
+
+    System.out.println("Before sending email");
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setFrom("Bokning@Backend2.com");
+    message.setTo(properties.getMail().getEmail());
+    message.setSubject("Booking at Backend2");
+    message.setText("Booking confirmed");
+    javaMailSender.send(message);
+
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
+
 
     return "redirect:/bookings/all";
 }

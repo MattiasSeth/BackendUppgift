@@ -4,7 +4,11 @@ import com.example.backenduppgift.DTO.RoomDto;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Services.BookingService;
 import com.example.backenduppgift.Services.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
@@ -24,6 +28,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
     private final BookingService bookingService;
+
 
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
