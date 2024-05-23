@@ -1,14 +1,23 @@
 package com.example.backenduppgift;
 
+import com.example.backenduppgift.Configurations.IntegrationProperties;
+import com.example.backenduppgift.Security.UserDataSeeder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Objects;
 
 //
 @SpringBootApplication
 public class BackendUppgiftApplication {
+
+    @Autowired
+    private UserDataSeeder userDataSeeder;
+
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -34,5 +43,11 @@ public class BackendUppgiftApplication {
             application.setWebApplicationType(WebApplicationType.NONE);
             application.run(args);
         }
+    }
+    @Bean
+    CommandLineRunner commandLineRunner() {
+        return args -> {
+            userDataSeeder.Seed();
+        };
     }
 }

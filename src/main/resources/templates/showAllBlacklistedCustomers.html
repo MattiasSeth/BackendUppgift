@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/main/resources/static/Style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+<h2 th:text="${addCustomer}"></h2>
+<form action="#" th:action="@{/blacklist/addDone}" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" name="name" id="name" value=""><br><br>
+    <label for="email">Email:</label><br>
+    <input type="text" name="email" id="email" value=""><br><br>
+    <label for="customerGroup">Customer Group:</label><br>
+    <input type="text" name="customerGroup" id="customerGroup" value=""><br><br>
+    <label for="ok">OK:</label><br>
+    <input type="checkbox" name="ok" id="ok" value="true"><br><br>
+    <input type="submit" value="Add to Blacklist">
+</form>
+<p></p>
+
 <h2 th:text="${customerTitle}"></h2>
 <div class="allCustomers" th:unless="${#lists.isEmpty(allCustomers)}">
     <table>
@@ -31,19 +49,5 @@
         </tbody>
     </table>
 </div>
-<p></p>
-
-<h2 th:text="${addCustomer}"></h2>
-<form action="/blacklist/addDone" method="post">
-    <label for="name">Name:</label><br>
-    <input type="text" name="name" id="name" value=""><br><br>
-    <label for="email">Email:</label><br>
-    <input type="text" name="email" id="email" value=""><br><br>
-    <label for="customerGroup">Customer Group:</label><br>
-    <input type="text" name="customerGroup" id="customerGroup" value=""><br><br>
-    <label for="ok">OK:</label><br>
-    <input type="checkbox" name="ok" id="ok" value="true"><br><br>
-    <input type="submit" value="Add to Blacklist">
-</form>
 </body>
 </html>

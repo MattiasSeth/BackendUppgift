@@ -1,0 +1,12 @@
+<ContractCustomerDTO>
+    <id>1</id>
+    <companyName>Test</companyName>
+    <contactName>John</contactName>
+    <contactTitle>Manager</contactTitle>
+    <streetAddress>123 Main St</streetAddress>
+    <city>Anytown</city>
+    <postalCode>12345</postalCode>
+    <country>Test</country>
+    <phone>1234567890</phone>
+    <fax>0987654321</fax>
+</ContractCustomerDTO>

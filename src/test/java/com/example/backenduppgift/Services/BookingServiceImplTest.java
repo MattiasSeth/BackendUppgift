@@ -50,7 +50,7 @@ class BookingServiceImplTest {
     void setUp() {
         Customer customer = new Customer(1L, "Albin Karlsson", "albin.karl@example.com");
         Room room = new Room(1L, 100, "Single", 1);
-        booking = new Booking(customer, room, 1, LocalDate.now(), LocalDate.now().plusDays(1));
+        booking = new Booking(customer, room, 1, LocalDate.now(), LocalDate.now().plusDays(1), 200.0);
         detailedBookingDto = DetailedBookingDto.builder()
                 .id(1L)
                 .extraBeds(1)

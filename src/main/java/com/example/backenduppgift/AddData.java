@@ -7,6 +7,8 @@ import com.example.backenduppgift.Repositories.BookingRepository;
 import com.example.backenduppgift.Repositories.CustomerRepository;
 import com.example.backenduppgift.Repositories.RoomEventRepository;
 import com.example.backenduppgift.Repositories.RoomRepository;
+import com.example.backenduppgift.Security.UserDataSeeder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -18,7 +20,6 @@ public class AddData implements CommandLineRunner {
     private final CustomerRepository customerRepository;
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
-
     private final RoomEventRepository roomEventRepository;
 
     public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, RoomEventRepository roomEventRepository) {
