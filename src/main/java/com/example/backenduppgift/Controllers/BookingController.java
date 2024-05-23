@@ -32,8 +32,8 @@ public class BookingController {
     private final BlacklistService blacklistService;
     private final DiscountService discountService;
 
-    @Autowired
-    JavaMailSender javaMailSender;
+    //@Autowired
+    //JavaMailSender javaMailSender;
 
     @Autowired
     IntegrationProperties properties;
@@ -158,7 +158,7 @@ public class BookingController {
 
     double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
     double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
-
+    /*
     System.out.println("Before sending email");
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom("Bokning@Backend2.com");
@@ -166,6 +166,8 @@ public class BookingController {
     message.setSubject("Booking at Backend2");
     message.setText("Booking confirmed");
     javaMailSender.send(message);
+
+     */
 
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
