@@ -49,13 +49,14 @@ public class ContractCustomerServiceImpl implements ContractCustomerService {
 
     @Override
     public List<ContractCustomer> searchCompanies(String searchWord, Sort sort) {
+        String toLowerCaseSearchWord = searchWord.toLowerCase();
         List<ContractCustomer> companyClients = contractCustomerRepository.findAll(sort); // sorterar sökt kunder
         List<ContractCustomer> companyClientHits = companyClients.stream()
 
-                .filter(cc -> cc.getCompanyName().contains(searchWord) ||
-                        cc.getContactName().contains(searchWord) ||
-                        cc.getCity().contains(searchWord) ||
-                        cc.getCountry().contains(searchWord))
+                .filter(cc -> cc.getCompanyName().toLowerCase().contains(toLowerCaseSearchWord) ||
+                        cc.getContactName().toLowerCase().contains(toLowerCaseSearchWord) ||
+                        cc.getCity().toLowerCase().contains(toLowerCaseSearchWord) ||
+                        cc.getCountry().toLowerCase().contains(toLowerCaseSearchWord))
                 .collect(Collectors.toList());
         return companyClientHits;    }
 
