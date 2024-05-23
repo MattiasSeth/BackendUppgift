@@ -4,10 +4,12 @@ import com.example.backenduppgift.Configurations.IntegrationProperties;
 import com.example.backenduppgift.DTO.CustomerDto;
 import com.example.backenduppgift.DTO.DetailedBookingDto;
 import com.example.backenduppgift.DTO.RoomDto;
+import com.example.backenduppgift.Email.EmailService;
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
 import com.example.backenduppgift.Services.*;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +37,7 @@ public class BookingController {
     private final RoomService roomService;
     private final BlacklistService blacklistService;
     private final DiscountService discountService;
+    private final EmailService emailService;
 
     //@Autowired
     //JavaMailSender javaMailSender;
@@ -155,27 +162,36 @@ public class BookingController {
     Customer customer = customerService.getById(customerId);
     Room room = roomService.getByIdToRoom(roomId);
 
-
     double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
     double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
-    /*
-    System.out.println("Before sending email");
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setFrom("Bokning@Backend2.com");
-    message.setTo(properties.getMail().getEmail());
-    message.setSubject("Booking at Backend2");
-    message.setText("Booking confirmed");
-    javaMailSender.send(message);
-
-     */
-
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
 
+    return "forward:/bookings/email";
+    }
+    @RequestMapping(value = "/email", method = {RequestMethod.GET, RequestMethod.POST})
+    public String sendMailWithInline()
+            throws MessagingException, IOException {
 
-    return "redirect:/bookings/all";
-}
+        // Hardcoded values for testing
+        Locale locale = new Locale("en");
+        String recipientName = "John Doe";
+        String recipientEmail = "johndoe@example.com";
+
+        // Image
+        Path imagePath = Path.of("src/main/resources/static/cat.jpg");
+        byte[] imageBytes = Files.readAllBytes(imagePath);
+        String imageName = "cat.jpg";
+        String imageContentType = "image/jpeg";
+
+        this.emailService.sendMailWithInline(
+                recipientName, recipientEmail, imageName,
+                imageBytes, imageContentType, locale);
+
+        return "redirect:/bookings/all";
+    }
+
     @RequestMapping("/searchRoom")
     public String searchRooms(){
         return "searchRoom";

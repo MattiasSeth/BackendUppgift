@@ -40,7 +40,6 @@ public class SpringMailConfig implements ApplicationContextAware, EnvironmentAwa
 
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        // Basic mail sender configuration, based on emailconfig.properties
         mailSender.setHost(properties.getMail().getHost());
         mailSender.setPort(properties.getMail().getPort());
         mailSender.setProtocol("smtp");
@@ -54,11 +53,6 @@ public class SpringMailConfig implements ApplicationContextAware, EnvironmentAwa
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.starttls.required", "true");
         props.put("mail.smtp.quitwait", "false");
-
-        // JavaMail-specific mail sender configuration, based on javamail.properties
-        //final Properties javaMailProperties = new Properties();
-        //javaMailProperties.load(this.applicationContext.getResource(JAVA_MAIL_FILE).getInputStream());
-        //mailSender.setJavaMailProperties(javaMailProperties);
 
         return mailSender;
     }
