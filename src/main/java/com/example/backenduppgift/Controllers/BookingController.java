@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 
@@ -158,7 +159,6 @@ public class BookingController {
     Long customerId = (Long) session.getAttribute("customerId");
     LocalDate startDate = (LocalDate) session.getAttribute("startDate");
     LocalDate endDate = (LocalDate) session.getAttribute("endDate");
-
     Customer customer = customerService.getById(customerId);
     Room room = roomService.getByIdToRoom(roomId);
 
@@ -168,17 +168,25 @@ public class BookingController {
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
 
+    session.setAttribute("bookingId", newBooking.getId());
+
     return "forward:/bookings/email";
     }
     @RequestMapping(value = "/email", method = {RequestMethod.GET, RequestMethod.POST})
-    public String sendMailWithInline()
+    public String sendMailWithInline(HttpSession session)
             throws MessagingException, IOException {
 
-        // Hardcoded values for testing
-        Locale locale = new Locale("en");
-        String recipientName = "John Doe";
-        String recipientEmail = "johndoe@example.com";
+        Long bookingId = (Long) session.getAttribute("bookingId");
+        Booking booking = bookingService.getById(bookingId);
 
+        String recipientName = booking.getCustomer().getName();
+        String recipientEmail = booking.getCustomer().getEmail();
+
+        LocalDate checkIn = booking.getStartDate();
+        LocalDate checkOut = booking.getEndDate();
+        long nights = ChronoUnit.DAYS.between(checkIn, checkOut);
+        String roomType = booking.getRoom().getRoomType();
+        double price =  Math.round(booking.getTotalPrice() * 100.0) / 100.0;
         // Image
         Path imagePath = Path.of("src/main/resources/static/cat.jpg");
         byte[] imageBytes = Files.readAllBytes(imagePath);
@@ -187,7 +195,7 @@ public class BookingController {
 
         this.emailService.sendMailWithInline(
                 recipientName, recipientEmail, imageName,
-                imageBytes, imageContentType, locale);
+                imageBytes, imageContentType, checkIn, checkOut, roomType, nights, price);
 
         return "redirect:/bookings/all";
     }

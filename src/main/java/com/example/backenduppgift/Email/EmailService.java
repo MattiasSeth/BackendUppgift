@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
@@ -27,23 +28,35 @@ public class EmailService {
     private TemplateEngine templateEngine;
 
     public void sendMailWithInline(
-            final String recipientName, final String recipientEmail, final String imageResourceName,
-            final byte[] imageBytes, final String imageContentType, final Locale locale)
+            final String recipientName,
+            final String recipientEmail,
+            final String imageResourceName,
+            final byte[] imageBytes,
+            final String imageContentType,
+            final LocalDate checkIn,
+            final LocalDate checkOut,
+            final String roomType,
+            final Long nights,
+            final double price)
             throws MessagingException {
 
         // Prepare the evaluation context
+        Locale locale = new Locale("en");
         final Context ctx = new Context(locale);
         ctx.setVariable("name", recipientName);
-        ctx.setVariable("subscriptionDate", new Date());
-        ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
         ctx.setVariable("imageResourceName", imageResourceName); // so that we can reference it from HTML
+        ctx.setVariable("checkIn", checkIn);
+        ctx.setVariable("checkOut", checkOut);
+        ctx.setVariable("roomType", roomType);
+        ctx.setVariable("nights", nights);
+        ctx.setVariable("price", price);
 
         // Prepare message using a Spring helper
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message =
                 new MimeMessageHelper(mimeMessage, true, "UTF-8"); // true = multipart
-        message.setSubject("Example HTML email with inline image");
-        message.setFrom("thymeleaf@example.com");
+        message.setSubject("Booking Backend2");
+        message.setFrom("Booking@Backend2.com");
         message.setTo(recipientEmail);
 
         // Create the HTML body using Thymeleaf
@@ -56,6 +69,5 @@ public class EmailService {
 
         // Send mail
         this.mailSender.send(mimeMessage);
-
     }
 }

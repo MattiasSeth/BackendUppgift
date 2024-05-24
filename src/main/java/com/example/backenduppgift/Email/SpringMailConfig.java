@@ -28,7 +28,6 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 public class SpringMailConfig implements ApplicationContextAware, EnvironmentAware {
 
-
     private ApplicationContext applicationContext;
     private Environment environment;
 

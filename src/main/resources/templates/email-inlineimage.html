@@ -1,35 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:remove="all">Template for HTML email with inline image</title>
+    <title th:remove="all">Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            min-width: 400px;
+        }
+        table, th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th, td {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-<p th:text="#{greeting(${name})}">
-    Hello, Peter Static!
-</p>
-<p th:if="${name.length() > 10}">
-    Wow! You've got a long name (more than 10 chars)!
-</p>
-<p>
-    You have been successfully subscribed to the <b>Fake newsletter</b> on
-    <span th:text="${#dates.format(subscriptionDate)}">28-12-2012</span>
-</p>
-<p>Your hobbies are:</p>
-<ul th:remove="all-but-first">
-    <li th:each="hobby : ${hobbies}" th:text="${hobby}">Reading</li>
-    <li>Writing</li>
-    <li>Bowling</li>
-</ul>
-<p>
-    You can find <b>your inlined image</b> just below this text.
-</p>
+<h2>Booking Details</h2>
+<table>
+    <tr>
+        <th>Check in</th>
+        <td th:text="${checkIn} + ' (from 15:00)'"></td>
+
+    </tr>
+    <tr>
+        <th>Check out</th>
+        <td th:text="${checkOut} + ' (before 12:00)'"></td>
+    </tr>
+    <tr>
+        <th>Room</th>
+        <td th:text="${roomType} + ' room'"></td>
+    </tr>
+    <tr>
+        <th>Nights</th>
+        <td th:text="${nights}"></td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td th:text="${price} + '$'"></td>
+    </tr>
+</table>
+
 <p>
     <img src="sample.png" th:src="|cid:${imageResourceName}|" />
 </p>
 <p>
     Regards, <br />
-    <em>The Thymeleaf Team</em>
+    <em>Booking@Backend2.com</em>
 </p>
 </body>
 </html>
