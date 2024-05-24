@@ -38,7 +38,6 @@ public class SpringMailConfig implements ApplicationContextAware, EnvironmentAwa
     public JavaMailSender mailSender() throws IOException {
 
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-
         mailSender.setHost(properties.getMail().getHost());
         mailSender.setPort(properties.getMail().getPort());
         mailSender.setProtocol("smtp");
