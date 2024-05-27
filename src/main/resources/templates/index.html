@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -37,7 +38,7 @@
         <div class="button-spacing">
             <a href="/room/all"><button class="btn btn-primary custom-button">Show All Rooms</button></a>
         </div>
-        <div class="button-spacing" sec:authorize="isAuthenticated()">
+        <div class="button-spacing" sec:authorize="hasAuthority('Admin')">
             <a href="/user/all"><button class="btn btn-primary custom-button">Show All Users</button></a>
         </div>
         <div class="button-spacing" sec:authorize="isAuthenticated()">
