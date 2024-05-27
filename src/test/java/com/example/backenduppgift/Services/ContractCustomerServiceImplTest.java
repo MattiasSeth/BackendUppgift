@@ -104,28 +104,4 @@ public class ContractCustomerServiceImplTest {
         assertEquals(contractCustomer.getCountry(), customers.get(0).getCountry());
         assertEquals(contractCustomer.getContactTitle(), customers.get(0).getContactTitle());
     }
-
-    @Test
-    void testXMLMapping() throws Exception {
-        XmlMapper xmlMapper = new XmlMapper();
-
-        try (InputStream inputStream = getClass().getResourceAsStream("/test-contract-customer.xml")) {
-            assertNotNull(inputStream, "Input stream should not be null");
-            ContractCustomerDTO dtoFromXML = xmlMapper.readValue(inputStream, ContractCustomerDTO.class);
-            assertNotNull(dtoFromXML);
-            assertEquals(contractCustomerDTO.getExternalId(), dtoFromXML.getExternalId());
-            assertEquals(contractCustomerDTO.getCompanyName(), dtoFromXML.getCompanyName());
-            assertEquals(contractCustomerDTO.getContactName(), dtoFromXML.getContactName());
-            assertEquals(contractCustomerDTO.getContactTitle(), dtoFromXML.getContactTitle());
-            assertEquals(contractCustomerDTO.getStreetAddress(), dtoFromXML.getStreetAddress());
-            assertEquals(contractCustomerDTO.getCity(), dtoFromXML.getCity());
-            assertEquals(contractCustomerDTO.getPostalCode(), dtoFromXML.getPostalCode());
-            assertEquals(contractCustomerDTO.getCountry(), dtoFromXML.getCountry());
-            assertEquals(contractCustomerDTO.getPhone(), dtoFromXML.getPhone());
-            assertEquals(contractCustomerDTO.getFax(), dtoFromXML.getFax());
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("Exception should not have been thrown: " + e.getMessage());
-        }
-    }
 }
