@@ -41,6 +41,9 @@
         <div class="button-spacing" sec:authorize="hasAuthority('Admin')">
             <a href="/user/all"><button class="btn btn-primary custom-button">Show All Users</button></a>
         </div>
+        <div class="button-spacing" sec:authorize="hasAuthority('Admin')">
+            <a href="/template/all"><button class="btn btn-primary custom-button">Email Template</button></a>
+        </div>
         <div class="button-spacing" sec:authorize="isAuthenticated()">
             <a href="/logout" ><button class="btn btn-primary custom-button">Logout</button></a>
         </div>

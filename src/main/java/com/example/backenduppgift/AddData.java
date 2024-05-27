@@ -1,5 +1,7 @@
 package com.example.backenduppgift;
 
+import com.example.backenduppgift.Email.EmailService;
+import com.example.backenduppgift.Email.EmailTemplateRepository;
 import com.example.backenduppgift.Entities.Booking;
 import com.example.backenduppgift.Entities.Customer;
 import com.example.backenduppgift.Entities.Room;
@@ -22,11 +24,14 @@ public class AddData implements CommandLineRunner {
     private final BookingRepository bookingRepository;
     private final RoomEventRepository roomEventRepository;
 
-    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, RoomEventRepository roomEventRepository) {
+    private final EmailService emailService;
+
+    public AddData(CustomerRepository customerRepository, RoomRepository roomRepository, BookingRepository bookingRepository, RoomEventRepository roomEventRepository, EmailTemplateRepository emailTemplateRepository, EmailService emailService) {
         this.customerRepository = customerRepository;
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
         this.roomEventRepository = roomEventRepository;
+        this.emailService = emailService;
     }
 
     @Override
@@ -74,7 +79,8 @@ public class AddData implements CommandLineRunner {
         bookingRepository.save(new Booking(c1,r1,0,startDate,endDate, 10000));
         bookingRepository.save(new Booking(c2,r2,0,startDate,endDate, 20000));
 
-        // Queues
+        // Email Template
+        emailService.saveTemplate("src/main/resources/templates/email-inlineimage.html");
 
     }
 }
