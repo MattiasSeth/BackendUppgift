@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -37,8 +37,11 @@
         <div class="button-spacing">
             <a href="/room/all"><button class="btn btn-primary custom-button">Show All Rooms</button></a>
         </div>
-        <div class="button-spacing">
+        <div class="button-spacing" sec:authorize="isAuthenticated()">
             <a href="/user/all"><button class="btn btn-primary custom-button">Show All Users</button></a>
+        </div>
+        <div class="button-spacing" sec:authorize="isAuthenticated()">
+            <a href="/logout" ><button class="btn btn-primary custom-button">Logout</button></a>
         </div>
     </div>
 </div>
