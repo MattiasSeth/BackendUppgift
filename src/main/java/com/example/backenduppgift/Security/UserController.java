@@ -1,16 +1,19 @@
 package com.example.backenduppgift.Security;
 
+import com.example.backenduppgift.DTO.BlacklistDto;
 import com.example.backenduppgift.DTO.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,7 +32,7 @@ public class UserController {
         List<UserDto> users = getAllUsers();
         model.addAttribute("allUsers", users);
         model.addAttribute("userTitle", "All Users");
-        model.addAttribute("addCustomer", "Add Customers");
+        //model.addAttribute("addCustomer", "Add Customers");
         return "showAllUsers";
     }
 
@@ -38,11 +41,35 @@ public class UserController {
         if(userRepository.getUserByUsername(email) == null){
             addUserWithPassword(email, roles,"Password");
         }
-
         model.addAttribute("email", email);
         model.addAttribute("roles", roles);
         return "redirect:/user/all";
     }
+    @RequestMapping("/delete")
+    public String getAllWithDelete (Model model) {
+        List<UserDto> users = getAllUsers();
+        model.addAttribute("allUsers", users);
+        model.addAttribute("userTitle", "All Users");
+        return "redirect:/user/all";
+    }
+
+    @RequestMapping(path = "/deleteById/{id}")
+    public String deleteCap(@PathVariable UUID id, Model model) {
+        userRepository.deleteById(id);
+        return getAllWithDelete(model);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void addUserWithPassword(String mail, String group, String password) {
         ArrayList<Role> roles = new ArrayList<>();
@@ -76,6 +103,7 @@ public class UserController {
         return UserDto.builder()
                 .username(user.getUsername())
                 .roles(roleNames)
+                .id(user.getId())
                 .build();
     }
 

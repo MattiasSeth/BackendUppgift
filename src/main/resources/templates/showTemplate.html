@@ -11,8 +11,8 @@
 <h2>Preview Template</h2> <br><br><br>
 <div class="alltemplates" th:unless="${#lists.isEmpty(alltemplates)}">
     <tr th:each="Template  : ${alltemplates}">
-        <td th:utext="${Template.content}"></td>
         <td><a th:href="@{/template/edit/{id}(id=${Template.id})}">Edit Template</a></td>
+        <td th:utext="${Template.content}"></td>
     </tr>
 </div>
 </body>
