@@ -1,20 +1,27 @@
 package com.example.backenduppgift.Email;
 
+import com.example.backenduppgift.Entities.Booking;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamSource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -26,6 +33,9 @@ public class EmailService {
 
     @Autowired
     private TemplateEngine templateEngine;
+
+    @Autowired
+    private final EmailTemplateRepository emailTemplateRepository;
 
     public void sendMailWithInline(
             final String recipientName,
@@ -70,4 +80,32 @@ public class EmailService {
         // Send mail
         this.mailSender.send(mimeMessage);
     }
+
+
+    public void saveTemplate(String filePath) throws IOException {
+        byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+        String content = new String(bytes, StandardCharsets.UTF_8);
+
+        EmailTemplate emailTemplate = new EmailTemplate(content);
+        emailTemplateRepository.save(emailTemplate);
+    }
+
+    public List<EmailTemplate> getTemplate (){
+        return emailTemplateRepository.findAll().stream().toList();
+    }
+
+    public EmailTemplate getById(Long id){
+        return emailTemplateRepository.findById(id).get();
+    }
+
+    public void deleteTemplate (Long id){
+        emailTemplateRepository.deleteById(id);
+    }
+
+    public void saveTemplate (EmailTemplate emailTemplate){
+        emailTemplateRepository.save(emailTemplate);
+    }
+
 }
+
+

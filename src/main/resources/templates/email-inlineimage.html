@@ -26,37 +26,50 @@
     </style>
 </head>
 <body>
-<h2>Booking Details</h2>
+<h2 id="headerId">Booking Details</h2>
 <table>
     <tr>
         <th>Check in</th>
-        <td th:text="${checkIn} + ' (from 15:00)'"></td>
-
+        <td>
+            <span th:unless="${checkIn}">yyyy-mm-dd </span>
+            <span th:if="${checkIn}" th:text="${checkIn}"></span> <span id="checkInTime">(from 15:00)</span>
+        </td>
     </tr>
     <tr>
         <th>Check out</th>
-        <td th:text="${checkOut} + ' (before 12:00)'"></td>
+        <td>
+            <span th:unless="${checkOut}">yyyy-mm-dd </span>
+            <span th:if="${checkOut}" th:text="${checkOut}"></span> <span id="checkOutTime">(from 12:00)</span>
+        </td>
     </tr>
     <tr>
         <th>Room</th>
-        <td th:text="${roomType} + ' room'"></td>
+        <td>
+            <span th:unless="${roomType}">Double or Single </span>
+            <span th:if="${roomType}" th:text="${roomType}"></span> room
+        </td>
     </tr>
     <tr>
         <th>Nights</th>
-        <td th:text="${nights}"></td>
+        <td>
+            <span th:unless="${nights}">10</span>
+            <span th:if="${nights}" th:text="${nights}"></span>
+        </td>
     </tr>
     <tr>
         <th>Price</th>
-        <td th:text="${price} + '$'"></td>
+        <td>
+            <span th:unless="${price}">99.99</span>
+            <span th:if="${price}" th:text="${price}"></span> <span id="currency">$</span>
+        </td>
     </tr>
 </table>
 
 <p>
     <img src="sample.png" th:src="|cid:${imageResourceName}|" />
 </p>
-<p>
-    Regards, <br />
-    <em>Booking@Backend2.com</em>
-</p>
+<p id="signature"> Regards, </p>
+<br />
+<em id="email">Booking@Backend2.com</em>
 </body>
 </html>
