@@ -2,10 +2,14 @@ package com.example.backenduppgift.Security;
 
 import com.example.backenduppgift.DTO.CustomerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +22,8 @@ public class UserController {
 
     private final UserRepository userRepository;
 
+    private final RoleRepository roleRepository;
+
     @RequestMapping("/all")
     public String getAllCustomers(Model model){
         List<UserDto> users = getAllUsers();
@@ -27,14 +33,28 @@ public class UserController {
         return "showAllUsers";
     }
 
+    @PostMapping("/addDone")
+    public String addUserDone(@RequestParam String email, @RequestParam String password, Model model){
+        if(userRepository.getUserByUsername(email) == null){
+            addUserWithPassword(email,"Admin",password);
+        }
+
+        model.addAttribute("email", email);
+        model.addAttribute("password", password);
+        return "redirect:/user/all";
+    }
+
+    private void addUserWithPassword(String mail, String group, String password) {
+        ArrayList<Role> roles = new ArrayList<>();
+        System.out.println(roleRepository.findByName(group));
+        roles.add(roleRepository.findByName(group));
 
 
-
-
-
-
-
-
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(password);
+        User user = User.builder().enabled(true).password(hash).username(mail).roles(roles).build();
+        userRepository.save(user);
+    }
 
 
 
