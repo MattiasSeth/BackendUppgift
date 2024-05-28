@@ -8,6 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<nav>
+    <div class="content">
+        <ul class="nav-item">
+            <li>
+                <a href="/">
+                    <span class="sidebar-icon"><i class="fa-solid fa-user-group"></i></span>
+                    <span class="sidebar-text">Home</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <form action="#" th:action="@{/user/addDone}" method="post" >
     <label for="email">Name:</label><br>
     <input type="text" name="email" id="email" value=""><br><br>
