@@ -34,21 +34,25 @@ public class UserController {
     }
 
     @PostMapping("/addDone")
-    public String addUserDone(@RequestParam String email, @RequestParam String password, Model model){
+    public String addUserDone(@RequestParam String email, @RequestParam String roles, Model model){
         if(userRepository.getUserByUsername(email) == null){
-            addUserWithPassword(email,"Admin",password);
+            addUserWithPassword(email, roles,"Password");
         }
 
         model.addAttribute("email", email);
-        model.addAttribute("password", password);
+        model.addAttribute("roles", roles);
         return "redirect:/user/all";
     }
 
     private void addUserWithPassword(String mail, String group, String password) {
         ArrayList<Role> roles = new ArrayList<>();
+        if (group.equalsIgnoreCase("Receptionist") || group.equalsIgnoreCase("Admin")){
+            roles.add(roleRepository.findByName(group));
+        } else if (group.equalsIgnoreCase("Both")) {
+            roles.add(roleRepository.findByName("Admin"));
+            roles.add(roleRepository.findByName("Receptionist"));
+        }
         System.out.println(roleRepository.findByName(group));
-        roles.add(roleRepository.findByName(group));
-
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hash = encoder.encode(password);

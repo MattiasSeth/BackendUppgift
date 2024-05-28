@@ -12,8 +12,12 @@
     <label for="email">Name:</label><br>
     <input type="text" name="email" id="email" value=""><br><br>
 
-    <label for="password">Password:</label><br>
-    <input type="text" name="password" id="password" value=""><br><br>
+    <label for="roles">Select roles:</label>
+    <select id="roles" name="roles">
+        <option value="Admin">Admin</option>
+        <option value="Receptionist">Receptionist</option>
+        <option value="Both">Both</option>
+    </select><br><br>
 
     <input type="submit" value="Submit">
 </form>
@@ -31,9 +35,9 @@
         <tr th:each="user : ${allUsers}">
             <td th:text="${user.username}"></td>
             <td>
-                    <span th:each="role : ${user.roles}" th:text="${role}" th:if="${!#strings.isEmpty(user.roles)}">
-                        <span th:unless="${roleStat.last}">, </span>
-                    </span>
+                <span th:each="role : ${user.roles}+ ' '" th:text="${role}" th:if="${!#strings.isEmpty(user.roles)}">
+                    <span th:unless="${roleStat.last}">, </span>
+                </span>
                 <span th:if="${#strings.isEmpty(user.roles)}">No Roles</span>
             </td>
         </tr>
