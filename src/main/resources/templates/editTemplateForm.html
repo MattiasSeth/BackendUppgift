@@ -26,6 +26,15 @@
         <label for="currency">Currency:</label>
         <input type="text" id="currency" name="currency" th:value="${currency}">
     </div>
+    <div>
+        <label for="signature">signature:</label>
+        <input type="text" id="signature" name="signature" th:value="${signature}">
+    </div>
+    <div>
+        <label for="email">Booking email:</label>
+        <input type="text" id="email" name="email" th:value="${email}">
+    </div>
+
     <input type="hidden" name="id" th:value="${template.id}">
     <button type="submit">Save</button>
 </form>

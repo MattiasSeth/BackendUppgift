@@ -33,6 +33,8 @@ public class EmailController {
         model.addAttribute("checkInTime", "");
         model.addAttribute("checkOutTime", "");
         model.addAttribute("currency", "");
+        model.addAttribute("signature","");
+        model.addAttribute("email","");
         return "editTemplateForm";
     }
 
@@ -41,37 +43,28 @@ public class EmailController {
                                  @RequestParam String header,
                                  @RequestParam String checkInTime,
                                  @RequestParam String checkOutTime,
-                                 @RequestParam String currency) {
+                                 @RequestParam String currency,
+                                 @RequestParam String signature,
+                                 @RequestParam String email) {
         EmailTemplate template = emailService.getById(id);
 
-        String updatedContent = updateTemplateContent(template.getContent(), header, checkInTime, checkOutTime, currency);
+        String updatedContent = updateTemplateContent(template.getContent(), header, checkInTime, checkOutTime,
+                currency, signature, email);
         template.setContent(updatedContent);
         emailService.deleteTemplate(id);
         emailService.saveTemplate(template);
-
+        System.out.println(template);
         return "redirect:/template/all";
     }
 
-    private String updateTemplateContent(String content, String header, String checkInTime, String checkOutTime, String currency) {
+    private String updateTemplateContent(String content, String header, String checkInTime, String checkOutTime, String currency, String signature, String email) {
         content = content.replaceAll("<h2[^>]*id=\"headerId\">.*?</h2>", "<h2 id=\"headerId\">" + header + "</h2>");
         content = content.replaceAll("<span[^>]*id=\"checkInTime\">.*?</span>", "<span id=\"checkInTime\">" + checkInTime + "</span>");
         content = content.replaceAll("<span[^>]*id=\"checkOutTime\">.*?</span>", "<span id=\"checkOutTime\">" + checkOutTime + "</span>");
         content = content.replaceAll("<span[^>]*id=\"currency\">.*?</span>", "<span id=\"currency\">" + currency + "</span>");
+        content = content.replaceAll("<p[^>]*id=\"signature\">.*?</p>", "<p id=\"signature\">" + signature + "</p>");
+        content = content.replaceAll("<em[^>]*id=\"email\">.*?</em>", "<em id=\"email\">" + email + "</em>");
 
         return content;
     }
-
-
-    /*
-    <h2 id="headerId">Booking Details</h2>
-    </span> <span id="checkInTime">(from 15:00)</span>
-    </span> <span id="checkOutTime">(from 12:00)</span>
-    </span> <span id="currency">$</span>
-
-
-    <p id="message">
-    Regards, <br />
-    <em id="bookingEmail">Booking@Backend2.com</em>
-</p>
-     */
 }
