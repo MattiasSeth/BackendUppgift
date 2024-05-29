@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,6 +20,9 @@
 <div class="container text-center">
     <h1 class="my-4">Backend</h1>
     <div class="d-flex flex-column align-items-center">
+        <div class="button-spacing" sec:authorize="!isAuthenticated()">
+            <a href="/login"><button class="btn btn-primary custom-button">Login</button></a>
+        </div>
         <div class="button-spacing">
             <a href="/customer/all"><button class="btn btn-primary custom-button">Show All Customers</button></a>
         </div>
@@ -37,11 +41,17 @@
         <div class="button-spacing">
             <a href="/room/all"><button class="btn btn-primary custom-button">Show All Rooms</button></a>
         </div>
-        <div class="button-spacing" sec:authorize="isAuthenticated()">
+        <div class="button-spacing" sec:authorize="hasAuthority('Admin')">
             <a href="/user/all"><button class="btn btn-primary custom-button">Show All Users</button></a>
         </div>
+        <div class="button-spacing" sec:authorize="hasAuthority('Admin')">
+            <a href="/template/all"><button class="btn btn-primary custom-button">Email Template</button></a>
+        </div>
         <div class="button-spacing" sec:authorize="isAuthenticated()">
-            <a href="/logout" ><button class="btn btn-primary custom-button">Logout</button></a>
+            <form action="/logout" method="post" th:action="@{/logout}">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <button class="btn btn-primary custom-button">Logout</button>
+            </form>
         </div>
     </div>
 </div>
