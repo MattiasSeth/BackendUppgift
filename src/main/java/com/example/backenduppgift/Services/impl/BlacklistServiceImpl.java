@@ -49,6 +49,8 @@ public class BlacklistServiceImpl implements BlacklistService {
     public boolean isEpostInBlacklist(String epost) {
         List<Blacklist> blacklistRepositoryAll = blacklistRepository.findAll();
         for (Blacklist blacklist : blacklistRepositoryAll) {
+            if (blacklist.getEmail()==null)
+                continue;
             if (blacklist.getEmail().equals(epost)) {
                 return true;
             }

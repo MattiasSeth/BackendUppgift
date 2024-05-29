@@ -164,6 +164,7 @@ public class BookingController {
 
     double tempDiscount = discountService.calculatePrice(startDate,endDate,room.getPrice());
     double finalPrice = discountService.getFinalPrice(customer.getId(),tempDiscount);
+    finalPrice = Math.round(finalPrice * 100.0) / 100.0;
 
     Booking newBooking = new Booking(customer,room,extraBeds,startDate,endDate,finalPrice);
     bookingService.addNewBookingFromEdit(newBooking);
