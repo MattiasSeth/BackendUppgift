@@ -90,15 +90,15 @@
                 <div class="pagination" style="display: inline-block">
                     <span>Page <strong th:text="${clientsPage.number + 1}"></strong> of <strong th:text="${clientsPage.totalPages}"></strong></span>
                     <span th:if="${clientsPage.hasPrevious()}">
-                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number - 1},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">Previous</a>
+                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number - 1},size=${clientsPage.size},sortBy=${sortBy},sortOrder=${sortOrder})}">Previous</a>
                     </span>
                     <span th:each="pageNum : ${#numbers.sequence(1, clientsPage.totalPages)}" class="p-1" style="display: inline-block">
-                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${pageNum},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">
+                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${pageNum},size=${clientsPage.size},sortBy=${sortBy},sortOrder=${sortOrder})}">
                             <button th:text="${pageNum}" th:classappend="${pageNum == clientsPage.number + 1 ? 'active' : ''}"></button>
                         </a>
                     </span>
                     <span th:if="${clientsPage.hasNext()}">
-                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number + 1},size=${clientsPage.size},sort=${sortBy},sortOrder=${sortOrder})}">Next</a>
+                        <a th:href="@{/contract-customer/search(searchWord=${searchWord},page=${clientsPage.number + 1},size=${clientsPage.size},sortBy=${sortBy},sortOrder=${sortOrder})}">Next</a>
                     </span>
                 </div>
             </div>

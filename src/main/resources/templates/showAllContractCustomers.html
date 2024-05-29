@@ -89,26 +89,25 @@
         <div class="row justify-content-center mb-3">
             <div class="col-auto text-center">
                 <div class="pagination" style="display: inline-block">
-                    <span style="display: inline-block">Page <strong th:text="${clientsPage.number + 1}"></strong>
-                        of
-                        <strong th:text="${clientsPage.totalPages}"></strong>
-                    </span>
+                    <span style="display: inline-block">Page <strong th:text="${clientsPage.number + 1}"></strong> of <strong th:text="${clientsPage.totalPages}"></strong></span>
 
                     <span th:if="${clientsPage.hasPrevious()}" style="display: inline-block">
-                        <a th:href="@{${'/contract-customer/all?page=' + (clientsPage.number) + '&size=' + clientsPage.size + '&sort=' + sortField + ',' + sortOrder}}">Previous</a>
-                    </span>
+                <a th:href="@{/contract-customer/all(page=${clientsPage.number}, size=${clientsPage.size}, sortBy=${sortBy}, sortOrder=${sortOrder})}">Previous</a>
+            </span>
+
                     <span th:each="pageNum : ${#numbers.sequence(1, clientsPage.totalPages)}" class="p-1" style="display: inline-block">
-                        <a th:href="@{${'/contract-customer/all?page=' + pageNum + '&size=' + clientsPage.size + '&sort=' + sortField + ',' + sortOrder}}">
-                            <button th:text="${pageNum}" th:class="${pageNum == clientsPage.number + 1 ? 'active' : ''}"></button>
-                        </a>
-                    </span>
+                <a th:href="@{/contract-customer/all(page=${pageNum}, size=${clientsPage.size}, sortBy=${sortBy}, sortOrder=${sortOrder})}">
+                    <button th:text="${pageNum}" th:classappend="${pageNum == clientsPage.number + 1 ? ' active' : ''}"></button>
+                </a>
+            </span>
 
                     <span th:if="${clientsPage.hasNext()}" style="display: inline-block">
-                        <a th:href="@{${'/contract-customer/all?page=' + (clientsPage.number + 2) + '&size=' + clientsPage.size + '&sort=' + sortField + ',' + sortOrder}}">Next</a>
-                    </span>
+                <a th:href="@{/contract-customer/all(page=${clientsPage.number + 2}, size=${clientsPage.size}, sortBy=${sortBy}, sortOrder=${sortOrder})}">Next</a>
+            </span>
                 </div>
             </div>
         </div>
+
     </div>
 </body>
 </html>

@@ -14,6 +14,7 @@ public class UserDataSeeder {
     RoleRepository roleRepository;
 
     public void Seed(){
+
         if (roleRepository.findByName("Admin") == null) {
             addRole("Admin");
         }
@@ -25,7 +26,11 @@ public class UserDataSeeder {
         }
         if(userRepository.getUserByUsername("Receptionist@receptionist.se") == null){
             addUser("Receptionist@receptionist.se","Receptionist");
+
         }
+
+
+
     }
 
     private void addUser(String mail, String group) {
