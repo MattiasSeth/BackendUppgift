@@ -62,9 +62,9 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
         if (user != null) {
             String token = UUID.randomUUID().toString();
             createTokenForUser(user, token);
-            String messageWithtUrl =  "Klicka här för att återställa ditt lösenord" + "http://localhost:8080/reset-password?token=" + token;
+            String messageWithtUrl =  "Klicka här för att återställa ditt lösenord" + " http://localhost:8080/reset-password?token=" + token;
 
-            message.setTo(email);
+            message.setTo(user.getUsername());
             message.setSubject("Lösenordsåterställning");
             message.setText(messageWithtUrl);
             message.setFrom("noreply@backendTwo.se");

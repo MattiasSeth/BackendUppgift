@@ -28,11 +28,13 @@ public class LoginController {
     }
 
     @PostMapping("/forgot-password")
-    public String processForgotPasswordForm(@RequestParam("email") String email, Model model) {
+    public String forgotPasswordForm(@RequestParam("email") String email, Model model) {
 
         if(userRepo.getUserByUsername(email)!=null) {
             resetPasswordServiceImpl.sendEmailResetPassword(email);
             model.addAttribute("message", "Ett mejl med länk för lösenordsåterställning har blivit skickat till ditt mejl.");
+            model.addAttribute("homePage", "Klicka här för att gå tillbaka till Login sidan.");
+
         }
         else{
             model.addAttribute("message", "Kontot finns inte, försök igen.");
@@ -48,11 +50,13 @@ public class LoginController {
     }
 
     @PostMapping("/reset-password")
-    public String processResetPasswordForm(@RequestParam("token") String token,
-                                           @RequestParam("password") String password,
-                                           Model model) {
+    public String resetPasswordForm(@RequestParam("token") String token,
+                                    @RequestParam("password") String password,
+                                    Model model) {
         resetPasswordServiceImpl.resetPassword(token, password);
         model.addAttribute("message", "Din lösenord har nu ändrats.");
+        model.addAttribute("homePage", "Klicka här för att gå tillbaka till Login sidan.");
+
         return "reset-password";
 
     }
